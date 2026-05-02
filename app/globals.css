@@ -24,3 +24,26 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+/* PROPIO JMA */
+h2{
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.acords > * {
+  display: block;
+  white-space: pre-wrap;
+  font-family: "Space Mono", monospace;
+
+}
+
+.acord {
+  background-color: lightgray;
+}
+
+.acord:hover{
+  background-color: darkgray;
+  /* color:white; */
+}
