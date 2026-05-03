@@ -13,6 +13,7 @@ export default function AcordsCanco(props:AcordsProps) {
     const {nom} = props;
 
     const [lletra, setLletra] = useState<string[]>([]);
+    const [transposicio, setTransposicio] = useState<number>(0);
 
     async function carrega() {
 
@@ -32,7 +33,7 @@ export default function AcordsCanco(props:AcordsProps) {
         <>
             <div className='acords'>
                 {lletra?.map( (x, i)=> (
-                    <LineaAcords key={i} lletra={x} />
+                    <LineaAcords key={i} lletra={x} transposicio={transposicio}/>
                 ))}
             </div>
         </>
@@ -42,9 +43,10 @@ export default function AcordsCanco(props:AcordsProps) {
 
 interface LineaAcordsProps {
     lletra:string;
+    transposicio:number;
 }
 export function LineaAcords(props:LineaAcordsProps) {
-    var {lletra} = props;
+    var {lletra, transposicio} = props;
     //Veure si són títols
     if(lletra.startsWith('##')) return (<b>{lletra.slice(3)}</b>);  // 2 + espai en blanc
     if(lletra.startsWith('#')) return (<h2>{lletra.slice(2)}</h2>); // 1 + --
@@ -66,10 +68,10 @@ export function LineaAcords(props:LineaAcordsProps) {
     
     if(acords) {
         return (
-        <span style={{color:'red'}}>
+        <span>
             {lletra.split(' ').map((x, i)=> {
                 if(x.length == 0) return <> </>;
-                else if(testAcords(x)) return (<Acord key={i} original={x}/>); // L'espai a la dreta és necessari
+                else if(testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio}/>); // L'espai a la dreta és necessari
                 else return (<>{x} </>)
             })}
         </span>
@@ -85,12 +87,32 @@ export function LineaAcords(props:LineaAcordsProps) {
 
 interface AcordProps {
     original:string;
+    transposicio:number;
 }
 
+
 export function Acord(props:AcordProps) {
-    const {original} = props;
+    const {original, transposicio} = props;
+
+    // MOLT BRUT
+    let fonamental = -1;
+    switch(original[0]) {
+        case "C": fonamental = 0; break;
+        case "D": fonamental = 2; break;
+        case "E": fonamental = 4; break;
+        case "F": fonamental = 5; break;
+        case "G": fonamental = 7; break;
+        case "A": fonamental = 9; break;
+        case "B": fonamental = 11; break;
+    }
+
+    if(original.includes('#')) fonamental++;
+
+
 
     return (
-        <><span className='acord'>{original}</span> </>
+        <><span className='acord'>{original}
+        <div className='popup'>{fonamental} - {(fonamental+transposicio)%12}</div>
+        </span> </>
     );
 }
