@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {useParams} from 'next/navigation';
 import {cercaAcords} from '../lib/busca';
 import { text } from 'stream/consumers';
@@ -17,10 +17,15 @@ export default function AcordsCanco(props:AcordsProps) {
     async function carrega() {
 
         let lletra = await cercaAcords(nom);
-
+        if(lletra == "ERROR") {
+            setLletra(["## Lletra no trobada"])
+            return;
+        }
         setLletra(lletra.split(`\n`));
     }
-    carrega()
+    useEffect(()=>{
+        carrega();
+    }, [])
 
 
     return (

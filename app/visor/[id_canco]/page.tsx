@@ -1,12 +1,12 @@
+"use client"
 import AcordsCanco from "@/components/acords"
+import { useParams } from "next/navigation"
 
 export default function Visor() {
-    let nom = "far";
+    const {id_canco:nom} = useParams<{id_canco:string}>();
     return (
         <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-        <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-            <span>{nom}</span>
-
+        <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-start py-16 px-16 bg-white dark:bg-black sm:items-start">
             <AcordsCanco nom={nom}/>
         </main>
         </div>
