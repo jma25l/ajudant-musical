@@ -45,6 +45,7 @@ h2{
 
 .acord {
   background-color: lightgray;
+  position: relative;
 }
 
 .acord:hover{
@@ -54,8 +55,8 @@ h2{
 
 .acord .popup {
   display: none;
-    position: sticky;
-  z-index: 1;
+  position: absolute;
+  z-index: 10;
   background-color: cyan;
   color:black;
   width: 100px;
@@ -67,6 +68,6 @@ h2{
 }
 
 .acord:hover .popup{
-  display: inline-flex;
+  display: block;
 
 }
