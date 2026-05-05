@@ -71,3 +71,21 @@ h2{
   display: block;
 
 }
+
+/* Visual Botons (Sense bootstrap, a veure què puc fer) */
+button.btn {
+  width: 10%;
+  min-width: 50px;
+  max-height: 200px;
+  margin:5px;
+  border-radius:10px;
+
+}
+
+button.btn.cA{
+  background-color: cyan;
+}
+button.btn.cA:hover{
+  background-color: blue;
+  color:white;
+}

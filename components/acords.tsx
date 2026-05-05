@@ -36,9 +36,9 @@ export default function AcordsCanco(props:AcordsProps) {
     return (
         <>
             <div className='row'>
-                <input readOnly type="number" value={transposicio}/>
-                <button onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
-                <button onClick={(e)=> preSetTransposicio(transposicio-1)}>-1</button>
+                <input style={{textAlign:"center"}}readOnly type="number" value={transposicio}/>
+                <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
+                <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio-1)}>-1</button>
             </div>
             <div className='acords'>
                 {lletra?.map( (x, i)=> (
@@ -122,20 +122,23 @@ export function Acord(props:AcordProps) {
 
     let modificadors = original.slice(1, original.endsWith("#")?-1:undefined);
     const [acordDisplay, setAcDisplay] = useState<string>(original);
+    const [extraD, setExtraD] = useState<string>("");
 
+    var f = fonamentals[fonamental];
     function updateD(){
-        let f = fonamentals[(fonamental+transposicio+12)%12];
+        f = fonamentals[(fonamental+transposicio+12)%12];
         setAcDisplay(
             f.slice(0,1)+
             modificadors
             +(f.length==2?"#":"")
             );
+        setExtraD((f.length==2?"":" "))
     }
     useEffect(updateD, [transposicio])    
 
     return (
         <><span className='acord'>{acordDisplay}
         <div className='popup'>{fonamental}<br/>{original}<br/>{modificadors}</div>
-        </span> </>
+        </span>{extraD}</>
     );
 }
