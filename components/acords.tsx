@@ -5,6 +5,7 @@ import {useParams} from 'next/navigation';
 import {cercaAcords} from '../lib/busca';
 import { text } from 'stream/consumers';
 import { testAcords } from '@/lib/regex';
+import { fonamentals } from '@/lib/escales';
 
 interface AcordsProps{
     nom:string;
@@ -28,9 +29,17 @@ export default function AcordsCanco(props:AcordsProps) {
         carrega();
     }, [])
 
+    function preSetTransposicio(t:number) {
+        if(Math.abs(t)<=12) setTransposicio(t);
+    }
 
     return (
         <>
+            <div className='row'>
+                <input readOnly type="number" value={transposicio}/>
+                <button onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
+                <button onClick={(e)=> preSetTransposicio(transposicio-1)}>-1</button>
+            </div>
             <div className='acords'>
                 {lletra?.map( (x, i)=> (
                     <LineaAcords key={i} lletra={x} transposicio={transposicio}/>
@@ -49,7 +58,10 @@ export function LineaAcords(props:LineaAcordsProps) {
     var {lletra, transposicio} = props;
     //Veure si són títols
     if(lletra.startsWith('##')) return (<b>{lletra.slice(3)}</b>);  // 2 + espai en blanc
-    if(lletra.startsWith('#')) return (<h2>{lletra.slice(2)}</h2>); // 1 + --
+    if(lletra.startsWith('#')) {
+        document.title = lletra.slice(2); //Tècnica molt guarra
+        return (<h2>{lletra.slice(2)}</h2>); // 1 + --
+    }
 
     //Veure si són acords o lletra
     var split = lletra.split(' ').filter(x=> x);
@@ -70,9 +82,9 @@ export function LineaAcords(props:LineaAcordsProps) {
         return (
         <span>
             {lletra.split(' ').map((x, i)=> {
-                if(x.length == 0) return <> </>;
+                if(x.length == 0) return (" ");
                 else if(testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio}/>); // L'espai a la dreta és necessari
-                else return (<>{x} </>)
+                else return (x)
             })}
         </span>
 
@@ -108,11 +120,22 @@ export function Acord(props:AcordProps) {
 
     if(original.includes('#')) fonamental++;
 
+    let modificadors = original.slice(1, original.endsWith("#")?-1:undefined);
+    const [acordDisplay, setAcDisplay] = useState<string>(original);
 
+    function updateD(){
+        let f = fonamentals[(fonamental+transposicio+12)%12];
+        setAcDisplay(
+            f.slice(0,1)+
+            modificadors
+            +(f.length==2?"#":"")
+            );
+    }
+    useEffect(updateD, [transposicio])    
 
     return (
-        <><span className='acord'>{original}
-        <div className='popup'>{fonamental} - {(fonamental+transposicio)%12}</div>
+        <><span className='acord'>{acordDisplay}
+        <div className='popup'>{fonamental}<br/>{original}<br/>{modificadors}</div>
         </span> </>
     );
 }
