@@ -105,6 +105,7 @@ interface AcordProps {
 
 export function Acord(props:AcordProps) {
     const {original, transposicio} = props;
+    if(/\[[^\]]*\]/i.test(original)) return original;
 
     // MOLT BRUT
     let fonamental = -1;
@@ -119,8 +120,9 @@ export function Acord(props:AcordProps) {
     }
 
     if(original.includes('#')) fonamental++;
+    if(original.includes('b')) fonamental--;
 
-    let modificadors = original.slice(1, original.endsWith("#")?-1:undefined);
+    let modificadors = original.replace(/^[A-G](#|b)?/, '');
     const [acordDisplay, setAcDisplay] = useState<string>(original);
     const [extraD, setExtraD] = useState<string>("");
 
