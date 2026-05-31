@@ -37,8 +37,9 @@ export default function AcordsCanco(props:AcordsProps) {
         <>
             <div className='row'>
                 <input style={{textAlign:"center"}}readOnly type="number" value={transposicio}/>
-                <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
                 <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio-1)}>-1</button>
+                <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
+
             </div>
             <div className='acords'>
                 {lletra?.map( (x, i)=> (
