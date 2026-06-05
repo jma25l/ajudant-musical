@@ -37,3 +37,21 @@ export async function cercaCanconer():Promise<Canco[]> {
         return [];
     }
 }
+
+export type AcordsConeguts = {[acord:string]: number};
+export interface AcordsApiInterface{
+    coneguts:AcordsConeguts;
+}
+
+export async function cercaAcordsConeguts():Promise<AcordsConeguts> {
+    try {
+        let q = await fetch(`/test/acords.yml`);
+        if(!q.ok) return {};
+        let t = await q.text();
+        let d = yamlParse(t) as AcordsApiInterface;
+        return d.coneguts;
+    } catch (error) {
+        console.error(error);
+        return {};
+    }
+}

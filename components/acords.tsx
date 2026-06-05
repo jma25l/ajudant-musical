@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import {useParams} from 'next/navigation';
-import {cercaAcords} from '../lib/busca';
+import {AcordsConeguts, cercaAcords, cercaAcordsConeguts} from '../lib/busca';
 import { text } from 'stream/consumers';
 import { testAcords } from '@/lib/regex';
 import { fonamentals } from '@/lib/escales';
@@ -14,15 +14,19 @@ export default function AcordsCanco(props:AcordsProps) {
     const {nom} = props;
 
     const [lletra, setLletra] = useState<string[]>([]);
+    const [coneguts, setConeguts] = useState<AcordsConeguts>({});
     const [transposicio, setTransposicio] = useState<number>(0);
 
     async function carrega() {
 
         let lletra = await cercaAcords(nom);
+        let coneguts = await cercaAcordsConeguts();
         if(lletra == "ERROR") {
             setLletra(["## Lletra no trobada"])
             return;
         }
+        setConeguts(coneguts); 
+        console.log(coneguts);
         setLletra(lletra.split(`\n`));
     }
     useEffect(()=>{
@@ -43,7 +47,7 @@ export default function AcordsCanco(props:AcordsProps) {
             </div>
             <div className='acords'>
                 {lletra?.map( (x, i)=> (
-                    <LineaAcords key={i} lletra={x} transposicio={transposicio}/>
+                    <LineaAcords key={i} lletra={x} transposicio={transposicio} coneguts={coneguts}/>
                 ))}
             </div>
         </>
@@ -54,6 +58,7 @@ export default function AcordsCanco(props:AcordsProps) {
 interface LineaAcordsProps {
     lletra:string;
     transposicio:number;
+    coneguts: AcordsConeguts;
 }
 export function LineaAcords(props:LineaAcordsProps) {
     var {lletra, transposicio} = props;
@@ -84,7 +89,7 @@ export function LineaAcords(props:LineaAcordsProps) {
         <span>
             {lletra.split(' ').map((x, i)=> {
                 if(x.length == 0) return (" ");
-                else if(testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio}/>); // L'espai a la dreta és necessari
+                else if(testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio} coneguts={props.coneguts}/>); // L'espai a la dreta és necessari
                 else return (x)
             })}
         </span>
@@ -101,6 +106,7 @@ export function LineaAcords(props:LineaAcordsProps) {
 interface AcordProps {
     original:string;
     transposicio:number;
+    coneguts: AcordsConeguts;
 }
 
 
@@ -126,21 +132,32 @@ export function Acord(props:AcordProps) {
     let modificadors = original.replace(/^[A-G](#|b)?/, '');
     const [acordDisplay, setAcDisplay] = useState<string>(original);
     const [extraD, setExtraD] = useState<string>("");
+    const [color, setColor] = useState<string>("gray");
 
     var f = fonamentals[fonamental];
     function updateD(){
         f = fonamentals[(fonamental+transposicio+12)%12];
-        setAcDisplay(
-            f.slice(0,1)+
+        let d = f.slice(0,1)+
             modificadors
-            +(f.length==2?"#":"")
+            +(f.length==2?"#":"");
+
+        setAcDisplay(
+            d
             );
         setExtraD((f.length==2?"":" "))
+
+        switch(props.coneguts[d]) {
+            case undefined: setColor("lightgray"); break; // No indexat
+            case 2: setColor("red"); break; // Millor no intentar-lo
+            case 1: setColor("lightgreen"); break; // Asolit
+            case 0: setColor("yellow"); break; // En procés d'assoliment
+        }
+
     }
     useEffect(updateD, [transposicio])    
 
     return (
-        <><span className='acord'>{acordDisplay}
+        <><span className='acord' style={{backgroundColor:color}}>{acordDisplay}
         <div className='popup'>{fonamental}<br/>{original}<br/>{modificadors}</div>
         </span>{extraD}</>
     );
