@@ -10,12 +10,23 @@ import { fonamentals } from '@/lib/escales';
 interface AcordsProps{
     nom:string;
 }
+
+function detColor(st:number) {
+    switch(st) {
+        case undefined: return "lightgray"; // No indexat
+        case 2: return("red"); // Millor no intentar-lo
+        case 1: return("lightgreen"); // Asolit
+        case 0: return("yellow"); // En procés d'assoliment
+    }
+}
 export default function AcordsCanco(props:AcordsProps) {
     const {nom} = props;
 
     const [lletra, setLletra] = useState<string[]>([]);
     const [coneguts, setConeguts] = useState<AcordsConeguts>({});
     const [transposicio, setTransposicio] = useState<number>(0);
+    const [llista, setLlista] = useState<string[]>([]);
+    let llistaTemp:string[] = [];
 
     async function carrega() {
 
@@ -26,7 +37,7 @@ export default function AcordsCanco(props:AcordsProps) {
             return;
         }
         setConeguts(coneguts); 
-        console.log(coneguts);
+        llistaTemp = [];
         setLletra(lletra.split(`\n`));
     }
     useEffect(()=>{
@@ -34,7 +45,16 @@ export default function AcordsCanco(props:AcordsProps) {
     }, [])
 
     function preSetTransposicio(t:number) {
-        if(Math.abs(t)<=12) setTransposicio(t);
+        if(Math.abs(t)>12) return;
+        llistaTemp = [];
+        setTransposicio(t);
+
+    }
+
+    function checkAddLista(ac:string):void {
+        if(llistaTemp.includes(ac)) return;
+        llistaTemp.push(ac);
+        setLlista(llistaTemp);
     }
 
     return (
@@ -45,9 +65,16 @@ export default function AcordsCanco(props:AcordsProps) {
                 <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
 
             </div>
+            <div className='flex flex-wrap' style={{justifyContent:"space-around"}} >
+                {
+                    llista?.map((x)=> (
+                        <div style={{textAlign:"center", width:"75px", margin:"10px", border:"black solid 1px", borderRadius:"5px", backgroundColor:detColor(coneguts[x])}} key={x}>{x}</div>
+                    ))
+                }
+            </div>
             <div className='acords'>
                 {lletra?.map( (x, i)=> (
-                    <LineaAcords key={i} lletra={x} transposicio={transposicio} coneguts={coneguts}/>
+                    <LineaAcords key={i} lletra={x} transposicio={transposicio} coneguts={coneguts} checkLlista={checkAddLista}/>
                 ))}
             </div>
         </>
@@ -59,6 +86,7 @@ interface LineaAcordsProps {
     lletra:string;
     transposicio:number;
     coneguts: AcordsConeguts;
+    checkLlista: {(ac:string): void};
 }
 export function LineaAcords(props:LineaAcordsProps) {
     var {lletra, transposicio} = props;
@@ -89,7 +117,7 @@ export function LineaAcords(props:LineaAcordsProps) {
         <span>
             {lletra.split(' ').map((x, i)=> {
                 if(x.length == 0) return (" ");
-                else if(testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio} coneguts={props.coneguts}/>); // L'espai a la dreta és necessari
+                else if(testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio} checkLlista={props.checkLlista} coneguts={props.coneguts}/>); // L'espai a la dreta és necessari
                 else return (x)
             })}
         </span>
@@ -107,6 +135,7 @@ interface AcordProps {
     original:string;
     transposicio:number;
     coneguts: AcordsConeguts;
+    checkLlista: {(ac:string): void};
 }
 
 
@@ -144,14 +173,10 @@ export function Acord(props:AcordProps) {
         setAcDisplay(
             d
             );
+        props.checkLlista(d);
         setExtraD((f.length==2?"":" "))
 
-        switch(props.coneguts[d]) {
-            case undefined: setColor("lightgray"); break; // No indexat
-            case 2: setColor("red"); break; // Millor no intentar-lo
-            case 1: setColor("lightgreen"); break; // Asolit
-            case 0: setColor("yellow"); break; // En procés d'assoliment
-        }
+        setColor(detColor(props.coneguts[d]))
 
     }
     useEffect(updateD, [transposicio])    
