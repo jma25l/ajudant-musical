@@ -1,6 +1,5 @@
 _Heus aquí un conjunt d'idees més o menys realistes_
 
-- Enumerar els acords que tinc dins d'una tablatura
 - Fer plantilla (i script) per generar ràpidament els diagrames que puc necessitar. 
 - Millorar índex cançons, afegir classificació
 - Comprovar com apareix en telèfon. 

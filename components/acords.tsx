@@ -2,28 +2,22 @@
 
 import { useEffect, useState } from 'react';
 import {useParams} from 'next/navigation';
-import {AcordsConeguts, cercaAcords, cercaAcordsConeguts} from '../lib/busca';
+import {cercaAcords, cercaAcordsConeguts} from '../lib/busca';
 import { text } from 'stream/consumers';
 import { testAcords } from '@/lib/regex';
 import { fonamentals } from '@/lib/escales';
+import { AcordsDBList, detColorEstatAcord } from '@/lib/tipus';
+import { FitxaAcord } from './dibuixAc';
 
 interface AcordsProps{
     nom:string;
 }
 
-function detColor(st:number) {
-    switch(st) {
-        case undefined: return "lightgray"; // No indexat
-        case 2: return("red"); // Millor no intentar-lo
-        case 1: return("lightgreen"); // Asolit
-        case 0: return("yellow"); // En procés d'assoliment
-    }
-}
 export default function AcordsCanco(props:AcordsProps) {
     const {nom} = props;
 
     const [lletra, setLletra] = useState<string[]>([]);
-    const [coneguts, setConeguts] = useState<AcordsConeguts>({});
+    const [coneguts, setConeguts] = useState<AcordsDBList>({});
     const [transposicio, setTransposicio] = useState<number>(0);
     const [llista, setLlista] = useState<string[]>([]);
     let llistaTemp:string[] = [];
@@ -68,7 +62,7 @@ export default function AcordsCanco(props:AcordsProps) {
             <div className='flex flex-wrap' style={{justifyContent:"space-around"}} >
                 {
                     llista?.map((x)=> (
-                        <div style={{textAlign:"center", width:"75px", margin:"10px", border:"black solid 1px", borderRadius:"5px", backgroundColor:detColor(coneguts[x])}} key={x}>{x}</div>
+                        <FitxaAcord acord={x} key={x} coneguts={coneguts}/>
                     ))
                 }
             </div>
@@ -85,7 +79,7 @@ export default function AcordsCanco(props:AcordsProps) {
 interface LineaAcordsProps {
     lletra:string;
     transposicio:number;
-    coneguts: AcordsConeguts;
+    coneguts: AcordsDBList;
     checkLlista: {(ac:string): void};
 }
 export function LineaAcords(props:LineaAcordsProps) {
@@ -134,7 +128,7 @@ export function LineaAcords(props:LineaAcordsProps) {
 interface AcordProps {
     original:string;
     transposicio:number;
-    coneguts: AcordsConeguts;
+    coneguts: AcordsDBList;
     checkLlista: {(ac:string): void};
 }
 
@@ -175,8 +169,7 @@ export function Acord(props:AcordProps) {
             );
         props.checkLlista(d);
         setExtraD((f.length==2?"":" "))
-
-        setColor(detColor(props.coneguts[d]))
+        setColor(detColorEstatAcord(props.coneguts[d]?.estat))
 
     }
     useEffect(updateD, [transposicio])    

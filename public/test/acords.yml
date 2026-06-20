@@ -1,9 +1,18 @@
 coneguts:
-  G: 1
-  D#: 0
-  D: 1
-  Am: 1
-  C: 1
-  Dm: 1
-  Em: 1
-  F: 1
+  G: 
+    estat: 1
+  D#: 
+    estat: 0
+  D:  
+    estat: 1
+  Am: 
+    estat: 1
+  C:  
+    estat: 1
+    ukelele: [3,0,0,0]
+  Dm: 
+    estat: 1
+  Em:  
+    estat: 1
+  F: 
+    estat: 1

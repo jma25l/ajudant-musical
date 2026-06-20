@@ -1,6 +1,7 @@
 'use client'
 
 import {parse as yamlParse} from "yaml"
+import { AcordDB, AcordsApiInterface, AcordsDBList, Canco, CanconerApiInterface } from "./tipus";
 
 export async function cercaAcords(nom:string):Promise<string> {
     try {
@@ -16,14 +17,6 @@ export async function cercaAcords(nom:string):Promise<string> {
     
 }
 
-export interface Canco {
-    id:string;
-    nom:string;
-}
-
-export interface CanconerApiInterface {
-    cancons: Canco[];
-}
 export async function cercaCanconer():Promise<Canco[]> {
     try {
         let q = await fetch(`/test/index.yml`);
@@ -38,12 +31,8 @@ export async function cercaCanconer():Promise<Canco[]> {
     }
 }
 
-export type AcordsConeguts = {[acord:string]: number};
-export interface AcordsApiInterface{
-    coneguts:AcordsConeguts;
-}
 
-export async function cercaAcordsConeguts():Promise<AcordsConeguts> {
+export async function cercaAcordsConeguts():Promise<AcordsDBList> {
     try {
         let q = await fetch(`/test/acords.yml`);
         if(!q.ok) return {};
