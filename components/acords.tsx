@@ -120,7 +120,7 @@ export function LineaAcords(props:LineaAcordsProps) {
             {lletra.split(' ').map((x, i)=> {
                 if(x.length == 0) return (" ");
                 else if(testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio} checkLlista={props.checkLlista} coneguts={props.coneguts}/>); // L'espai a la dreta és necessari
-                else return (x)
+                else return (x+" ")
             })}
         </span>
 
