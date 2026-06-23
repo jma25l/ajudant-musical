@@ -9,10 +9,13 @@ coneguts:
     estat: 1
   C:  
     estat: 1
-    ukelele: [3,0,0,0]
+    ukelele: [0,0,0,3]
   Dm: 
     estat: 1
   Em:  
     estat: 1
   F: 
     estat: 1
+  A: 
+    estat: 1
+    ukelele: [2,1,0,0]

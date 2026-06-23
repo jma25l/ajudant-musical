@@ -1,5 +1,6 @@
 "use client"
-import { Canco, cercaCanconer } from "@/lib/busca";
+import { cercaCanconer } from "@/lib/busca";
+import { Canco } from "@/lib/tipus";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 

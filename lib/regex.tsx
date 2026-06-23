@@ -2,7 +2,7 @@
 //https://stackoverflow.com/a/46522424 (Adaptat)
 var notes = "[A-G]",
   accidentals = "(b|bb|#)?",
-  chords = "(maj7|min7|maj|min|sus|m)?",
+  chords = "(7|m7|maj|min|sus|m)?",
   suspends = "(1-9)?";
 
 export function testAcords(x:string) {

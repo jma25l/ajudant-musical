@@ -8,6 +8,7 @@ import { testAcords } from '@/lib/regex';
 import { fonamentals } from '@/lib/escales';
 import { AcordsDBList, detColorEstatAcord } from '@/lib/tipus';
 import { FitxaAcord } from './dibuixAc';
+import Link from 'next/link';
 
 interface AcordsProps{
     nom:string;
@@ -19,6 +20,7 @@ export default function AcordsCanco(props:AcordsProps) {
     const [lletra, setLletra] = useState<string[]>([]);
     const [coneguts, setConeguts] = useState<AcordsDBList>({});
     const [transposicio, setTransposicio] = useState<number>(0);
+    const [nomesLletra, setNomesLletra] = useState<boolean>(false);
     const [llista, setLlista] = useState<string[]>([]);
     let llistaTemp:string[] = [];
 
@@ -54,12 +56,13 @@ export default function AcordsCanco(props:AcordsProps) {
     return (
         <>
             <div className='row'>
-                <input style={{textAlign:"center"}}readOnly type="number" value={transposicio}/>
+                <button className="btn" style={{backgroundColor:(nomesLletra?"red":"lightgreen"), width:"100px"}} onClick={(e)=> setNomesLletra(!nomesLletra)}>Acords</button>
+                <input style={{textAlign:"center"}} readOnly type="number" value={transposicio}/>
                 <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio-1)}>-1</button>
                 <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
 
             </div>
-            <div className='flex flex-wrap' style={{justifyContent:"space-around"}} >
+            <div className='flex-wrap' style={{justifyContent:"space-around", display:(nomesLletra?'none':'flex')}} >
                 {
                     llista?.map((x)=> (
                         <FitxaAcord acord={x} key={x} coneguts={coneguts}/>
@@ -68,7 +71,7 @@ export default function AcordsCanco(props:AcordsProps) {
             </div>
             <div className='acords'>
                 {lletra?.map( (x, i)=> (
-                    <LineaAcords key={i} lletra={x} transposicio={transposicio} coneguts={coneguts} checkLlista={checkAddLista}/>
+                    <LineaAcords key={i} lletra={x} transposicio={transposicio} coneguts={coneguts} checkLlista={checkAddLista} nomesLletra={nomesLletra}/>
                 ))}
             </div>
         </>
@@ -81,18 +84,22 @@ interface LineaAcordsProps {
     transposicio:number;
     coneguts: AcordsDBList;
     checkLlista: {(ac:string): void};
+    nomesLletra:boolean
 }
 export function LineaAcords(props:LineaAcordsProps) {
-    var {lletra, transposicio} = props;
+    var {lletra, transposicio, nomesLletra} = props;
     //Veure si són títols
     if(lletra.startsWith('##')) return (<b>{lletra.slice(3)}</b>);  // 2 + espai en blanc
     if(lletra.startsWith('#')) {
         document.title = lletra.slice(2); //Tècnica molt guarra
         return (<h2>{lletra.slice(2)}</h2>); // 1 + --
     }
+    if(lletra.startsWith("https://")) {
+        return <Link href={lletra}>{lletra}</Link>;
+    }
 
     //Veure si són acords o lletra
-    var split = lletra.split(' ').filter(x=> x);
+    var split = lletra.split(/[/\s]+/g).filter(x=> x);
     if(split.length == 0) return (<br></br>);
     let acords = true;
     let i = 0;
@@ -107,6 +114,7 @@ export function LineaAcords(props:LineaAcordsProps) {
 
     
     if(acords) {
+        if(nomesLletra) return;
         return (
         <span>
             {lletra.split(' ').map((x, i)=> {
@@ -176,7 +184,9 @@ export function Acord(props:AcordProps) {
 
     return (
         <><span className='acord' style={{backgroundColor:color}}>{acordDisplay}
-        <div className='popup'>{fonamental}<br/>{original}<br/>{modificadors}</div>
-        </span>{extraD}</>
+        <div className='popup'> <FitxaAcord acord={acordDisplay} coneguts={props.coneguts} popup={true}/>
+</div>
+        </span>
+        </>
     );
 }
