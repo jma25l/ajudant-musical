@@ -27,19 +27,20 @@ body {
 
 
 /* PROPIO JMA */
-h2{
+h2 {
   font-size: 2rem;
   font-weight: bold;
 }
 
-.acords > * {
+.acords>* {
   display: block;
   white-space: pre-wrap;
   font-family: "Space Mono", monospace;
 
 }
 
-.acords > h2, .acords > b {
+.acords>h2,
+.acords>b {
   font-family: "Arial";
 }
 
@@ -48,7 +49,7 @@ h2{
   position: relative;
 }
 
-.acord:hover{
+.acord:hover {
   background-color: darkgray;
   /* color:white; */
 }
@@ -57,15 +58,34 @@ h2{
   display: none;
   position: absolute;
   z-index: 10;
-  color:black;
+  color: black;
   width: 100px;
-  height: 100px;
+  height: 170x;
   transform: translate(0, "-50%");
 }
 
-.acord:hover .popup{
+.acord:hover .popup {
   display: block;
 
+}
+
+.fitxaAcord {
+  text-align: center;
+  width: 75px;
+  margin: 10px;
+  outline: black solid 1px;
+  border-radius: 5px;
+}
+
+.fitxaAcord>img {
+  width: 100%;
+  border-radius: 5px;
+}
+.fitxaAcord.desconegut{
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: lightgray;
 }
 
 /* Visual Botons (Sense bootstrap, a veure què puc fer) */
@@ -73,15 +93,16 @@ button.btn {
   width: 10%;
   min-width: 50px;
   max-height: 200px;
-  margin:5px;
-  border-radius:10px;
+  margin: 5px;
+  border-radius: 10px;
 
 }
 
-button.btn.cA{
+button.btn.cA {
   background-color: cyan;
 }
-button.btn.cA:hover{
+
+button.btn.cA:hover {
   background-color: blue;
-  color:white;
+  color: white;
 }

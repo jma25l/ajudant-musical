@@ -9,21 +9,22 @@ interface FitxaAcordProps{
 
 export function FitxaAcord(props:FitxaAcordProps) {
     const {acord} = props;
-    let fitxa:AcordDB = {};
-    if(props.coneguts[acord]) fitxa = props.coneguts[acord];
+    let fitxa:AcordDB = props.coneguts[acord];
     
-    let style:any = {textAlign:"center", width:"75px", margin:"10px", border:"black solid 1px", borderRadius:"5px", backgroundColor:detColorEstatAcord(fitxa.estat)};
-    if(props.popup) {
-        style.width = "100%";
-        style.height = "100%";
+    if(fitxa) {
+        let style:any = {backgroundColor:detColorEstatAcord(fitxa.estat)};
+        if(props.popup) {
+            style.width = "100%";
+            style.height = "100%";
+        }
+        const acordNet = acord.replace('#', 'h');
+        return (<div style={style} className="fitxaAcord">
+            <img src={"/diagrames/"+acordNet+".png"}/>
+        </div>);
     }
-
+    
     return (
-        <div style={style}>
+        <div className="fitxaAcord desconegut">
             <span>{acord}</span>
-            <br/>
-            <div>
-            {fitxa.ukelele?.join(' ')}
-            </div>
-        </div>)
+        </div>);    
 }

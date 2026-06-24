@@ -1,3 +1,5 @@
+![demo1](docs/img/demo1.png)
+
 # Ajudant musical (nom temporal)
 Aquesta aplicació neix amb un objectiu força simple. És útil tenir tots els acords de les cançons que un toca *(en el meu cas, de forma més que amateur)*, i algunes eines adicionals. Tanmateix, l'aplicació que vaig trobar i que segurament és de les més importants a nivell mundial té diversos problemes. En primer lloc, que quan passes un temps sense obrir-la, et comença a bombardejar amb missatges sobre les suscripcions de pagament, que gairebé et surt a compte anar a buscar les 7 boles de drac més que tancar-los. A més, unes quantes de les funcionalitats estan només a la versió de pagament. Un també troba l'extrem contrari, webs on hi ha acords sense cap mena de formatat ni eina addicional. 
 
@@ -16,5 +18,8 @@ cancons:
 ```
 - Les cançons, en arxius anomenats `<id>.yml`, en un format força compatible a Markdown (#, ## títols, accepta https). Divideixen en files d'acords i files de text. És important que les files de ponts instrumentals, hi hagi dos espais entre els acords, no un, per a que hi hagi lloc per a posar els sostinguts en trasposar. `G  D  C  G  x2`
 
+
+## Requisits python
+PIL (pillow), pyyaml
 
 *(c) Joaquín Millán Aldaz (2026)*
