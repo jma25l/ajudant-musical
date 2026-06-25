@@ -1,8 +1,8 @@
 from PIL import Image, ImageDraw, ImageFont
-import yaml
-import os
+from utils import *
+
 #Funcions i variables auxiliars que si no empro ara, les empraré
-publicPath = os.path.dirname(__file__)+"/../public/"
+publicPath = pP()
 def rect(dib, x1, y1, x2, y2, col):
     dib.polygon([(x1, y1), (x2, y1), (x2, y2), (x1, y2)], col)
 def cercle(dib, p, r, c): 
@@ -11,8 +11,7 @@ def cercle(dib, p, r, c):
 
 # Lectura de l'arxiu de dades: 
 print(publicPath)
-with open(publicPath+"test/acords.yml", 'r') as arxiu: 
-    acords = yaml.safe_load(arxiu)["coneguts"]
+acords = llegeixAcords()["coneguts"]
 
 # Iterar entre els acords i generar les imatges
 for k in acords: 
@@ -21,8 +20,24 @@ for k in acords:
     dib = ImageDraw.Draw(img)
 
     #Nom de l'acord
-    font = ImageFont.truetype("arial.ttf", 40)
-    dib.text((75, 75), ' '.join(str(x) for x in v["ukelele"]), font=font, anchor="mm", fill="black")
+    font = ImageFont.truetype("arial.ttf", 30)
+
+    #Trastes 
+    for j in range(6): 
+        rect(dib, 29, 39+21*j, 121, 41+21*j, 'darkgray')
+    for i in range(4): 
+        I = i+1
+        t:int = v["ukelele"][i]
+        st = str(t)
+        #Cordes
+        rect(dib, I*30-1, 40, I*30+1, 145, 'darkgray')
+        if t > 0: 
+            cercle(dib, (I*30, t*21+30), 5, 'black')
+        elif t == -1: 
+            st = 'X'
+        dib.text((I*30, 20), st, font=font, anchor="mm", fill="black")
+
+    #dib.text((75, 75), ' '.join(str(x) for x in v["ukelele"]), font=font, anchor="mm", fill="black")
     rect(dib, 0, 150, 150, 220, 'lightgray')
     dib.text((75, 175), k, font=font, anchor="mm", fill="black")
     kNet = k.replace('#', 'h')

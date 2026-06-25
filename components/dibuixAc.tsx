@@ -25,6 +25,7 @@ export function FitxaAcord(props:FitxaAcordProps) {
     
     return (
         <div className="fitxaAcord desconegut">
+            <big>?</big>
             <span>{acord}</span>
         </div>);    
 }
