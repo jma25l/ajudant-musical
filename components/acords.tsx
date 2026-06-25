@@ -99,7 +99,7 @@ export function LineaAcords(props:LineaAcordsProps) {
     }
 
     //Veure si són acords o lletra
-    var split = lletra.split(/[/\s]+/g).filter(x=> x);
+    var split = lletra.split(/[/\s]/g).filter(x=> x);
     if(split.length == 0) return (<br></br>);
     let acords = true;
     let i = 0;
@@ -117,7 +117,7 @@ export function LineaAcords(props:LineaAcordsProps) {
         if(nomesLletra) return;
         return (
         <span>
-            {lletra.split(' ').map((x, i)=> {
+            {lletra.split(/[/\s]/g).map((x, i)=> {
                 if(x.length == 0) return (" ");
                 else if(testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio} checkLlista={props.checkLlista} coneguts={props.coneguts}/>); // L'espai a la dreta és necessari
                 else return (x+" ")
