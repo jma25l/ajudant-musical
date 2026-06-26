@@ -55,7 +55,7 @@ export default function AcordsCanco(props:AcordsProps) {
 
     return (
         <>
-            <div className='row'>
+            <div style={{display:'flex', flexWrap:'wrap', justifyContent:'space-around'}}>
                 <button className="btn" style={{backgroundColor:(nomesLletra?"red":"lightgreen"), width:"100px"}} onClick={(e)=> setNomesLletra(!nomesLletra)}>Acords</button>
                 <input style={{textAlign:"center", display:(nomesLletra?'none':'inline')}} readOnly type="number" value={transposicio}/>
                 <button className="btn cA" style={{display:(nomesLletra?'none':'inline')}} onClick={(e)=> preSetTransposicio(transposicio-1)}>-1</button>
@@ -95,6 +95,7 @@ export function LineaAcords(props:LineaAcordsProps) {
         return (<h2>{lletra.slice(2)}</h2>); // 1 + --
     }
     if(lletra.startsWith("https://")) {
+        const url = new URL(lletra);
         return <Link href={lletra}>{lletra}</Link>;
     }
 

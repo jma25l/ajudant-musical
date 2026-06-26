@@ -64,6 +64,11 @@ h2 {
   transform: translate(0, "-50%");
 }
 
+.acords  a {
+  display: inline-block;
+  max-width: 50vw;
+}
+
 .acord:hover .popup {
   display: block;
 
