@@ -57,9 +57,9 @@ export default function AcordsCanco(props:AcordsProps) {
         <>
             <div className='row'>
                 <button className="btn" style={{backgroundColor:(nomesLletra?"red":"lightgreen"), width:"100px"}} onClick={(e)=> setNomesLletra(!nomesLletra)}>Acords</button>
-                <input style={{textAlign:"center"}} readOnly type="number" value={transposicio}/>
-                <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio-1)}>-1</button>
-                <button className="btn cA" onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
+                <input style={{textAlign:"center", display:(nomesLletra?'none':'inline')}} readOnly type="number" value={transposicio}/>
+                <button className="btn cA" style={{display:(nomesLletra?'none':'inline')}} onClick={(e)=> preSetTransposicio(transposicio-1)}>-1</button>
+                <button className="btn cA" style={{display:(nomesLletra?'none':'inline')}} onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
 
             </div>
             <div className='flex-wrap' style={{justifyContent:"space-around", display:(nomesLletra?'none':'flex')}} >
@@ -103,18 +103,19 @@ export function LineaAcords(props:LineaAcordsProps) {
     if(split.length == 0) return (<br></br>);
     let acords = true;
     let i = 0;
-    while(acords && i < split.length) {
+    let sep = false;
+    while(acords && i < split.length && !sep) {
         let x = split[i];
         i++;
+        if(/\[[^\]]*\]/i.test(x)) sep = true;
         if(testAcords(x)) continue;
         if(/x[0-9]+/i.test(x)) continue;
-        if(/\[[^\]]*\]/i.test(x)) continue;
         acords = false;
     }
 
     
     if(acords) {
-        if(nomesLletra) return;
+        if(nomesLletra && !sep) return;
         return (
         <span>
             {lletra.split(/[/\s]/g).map((x, i)=> {

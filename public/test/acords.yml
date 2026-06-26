@@ -36,3 +36,5 @@ coneguts:
   G:
     estat: 1
     ukelele: [0, 2, 3, 2]
+  G#:
+    ukelele: [1, 2, 3, 2]

@@ -18,6 +18,12 @@ cancons:
 ```
 - Les cançons han d'estar en arxius anomenats `<id>.md`, en un format força compatible a Markdown (#/## per a títols, https per a enllaços). A grosso modo, es divideix en files d'acords i files de text. És important que als ponts instrumentals hi hagi dos espais entre els acords, no un, perquè hi hagi lloc per a posar els sostinguts en trasposar sense que s'enganxi tot. `G  D  C  G  x2`
 
+## Com començar?
+- Instal·lar bun: https://bun.com/
+- Instal·lar les dependències necessàries executant la comanda `bun i` al directori de treball. 
+- Afegir els arxius .md i .yml necessaris (per temes de drets, no m'atreveixo a penjar cap lletra)
+- Opció 1: `bun dev`: Útil si vols fer modificacions en temps real. 
+- Opció 2: `bun run build` i `bun start`: Útil per a treballar a llarg termini, hauria de ser més ràpid.
 
 ## Requisits python
 PIL (pillow), pyyaml

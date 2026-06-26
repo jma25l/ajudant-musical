@@ -1,8 +1,7 @@
 _Heus aquí un conjunt d'idees més o menys realistes_
 
-- Fer plantilla (i script) per generar ràpidament els diagrames que puc necessitar. 
 - Millorar índex cançons, afegir classificació
-- Comprovar com apareix en telèfon. 
+- Arreglar responsivitat horitzontal telèfons.
 - Afegir scroll automàtic.
 - Afegir afinador: Veure https://github.com/omar-diop/perfect-pitch *Comprovar llicències*
 - Es poden endreçar millor els components?
