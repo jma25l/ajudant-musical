@@ -94,10 +94,7 @@ export function LineaAcords(props:LineaAcordsProps) {
         document.title = lletra.slice(2); //Tècnica molt guarra
         return (<h2>{lletra.slice(2)}</h2>); // 1 + --
     }
-    if(lletra.startsWith("https://")) {
-        const url = new URL(lletra);
-        return <Link href={lletra}>{lletra}</Link>;
-    }
+    if(lletra.startsWith("https://")) return <Link href={lletra}>{lletra}</Link>;
 
     //Veure si són acords o lletra
     var split = lletra.split(/[/\s]/g).filter(x=> x);
@@ -108,15 +105,18 @@ export function LineaAcords(props:LineaAcordsProps) {
     while(acords && i < split.length && !sep) {
         let x = split[i];
         i++;
-        if(/\[[^\]]*\]/i.test(x)) sep = true;
-        if(testAcords(x)) continue;
         if(/x[0-9]+/i.test(x)) continue;
+        if(/\[[^\]]*\]/i.test(x)) {
+            sep = true;
+            continue;
+        }
+        if(testAcords(x)) continue;
         acords = false;
     }
 
     
     if(acords) {
-        if(nomesLletra && !sep) return;
+        if(nomesLletra) return;
         return (
         <span>
             {lletra.split(/[/\s]/g).map((x, i)=> {
