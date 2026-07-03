@@ -86,7 +86,7 @@ interface LineaAcordsProps {
     checkLlista: {(ac:string): void};
     nomesLletra:boolean
 }
-export function LineaAcords(props:LineaAcordsProps) {
+function LineaAcords(props:LineaAcordsProps) {
     var {lletra, transposicio, nomesLletra} = props;
     //Veure si són títols
     if(lletra.startsWith('##')) return (<b>{lletra.slice(3)}</b>);  // 2 + espai en blanc
@@ -143,7 +143,7 @@ interface AcordProps {
 }
 
 
-export function Acord(props:AcordProps) {
+function Acord(props:AcordProps) {
     const {original, transposicio} = props;
     if(/\[[^\]]*\]/i.test(original)) return original;
 

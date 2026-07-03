@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "knip": "knip"
   },
   "dependencies": {
     "next": "16.2.9",
@@ -16,11 +17,12 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.1",
-    "@types/node": "^26.0.0",
+    "@types/node": "^26.1.0",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
-    "eslint": "^10.5.0",
+    "eslint": "9.39.1",
     "eslint-config-next": "16.2.9",
+    "knip": "^6.24.0",
     "tailwindcss": "^4.3.1",
     "typescript": "^6.0.3"
   },
