@@ -1,14 +1,14 @@
 'use client'
 
 import {parse as yamlParse} from "yaml"
-import { AcordDB, AcordsApiInterface, AcordsDBList, Canco, CanconerApiInterface } from "./tipus";
+import { AcordsApiInterface, AcordsDBList, Canco, CanconerApiInterface } from "./tipus";
 
 export async function cercaAcords(nom:string):Promise<string> {
     try {
-        let q = await fetch(`/test/${nom}.md`);
+        const q = await fetch(`/test/${nom}.md`);
         if(!q.ok) return "ERROR";
         return q.text();
-    } catch (error:any) {
+    } catch (error) {
         if(error instanceof Error) {
             return error.message;
         }
@@ -19,10 +19,10 @@ export async function cercaAcords(nom:string):Promise<string> {
 
 export async function cercaCanconer():Promise<Canco[]> {
     try {
-        let q = await fetch(`/test/index.yml`);
+        const q = await fetch(`/test/index.yml`);
         if(!q.ok) return [];
-        let t = await q.text();
-        let d = yamlParse(t) as CanconerApiInterface;
+        const t = await q.text();
+        const d = yamlParse(t) as CanconerApiInterface;
 
         return d.cancons;
     } catch (error) {
@@ -34,10 +34,10 @@ export async function cercaCanconer():Promise<Canco[]> {
 
 export async function cercaAcordsConeguts():Promise<AcordsDBList> {
     try {
-        let q = await fetch(`/test/acords.yml`);
+        const q = await fetch(`/test/acords.yml`);
         if(!q.ok) return {};
-        let t = await q.text();
-        let d = yamlParse(t) as AcordsApiInterface;
+        const t = await q.text();
+        const d = yamlParse(t) as AcordsApiInterface;
         return d.coneguts;
     } catch (error) {
         console.error(error);

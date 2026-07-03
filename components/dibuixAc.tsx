@@ -1,4 +1,6 @@
 import { AcordDB, AcordsDBList, detColorEstatAcord } from "@/lib/tipus";
+import Image from "next/image";
+import { CSSProperties } from "react";
 
 interface FitxaAcordProps{
     coneguts:AcordsDBList;
@@ -9,17 +11,17 @@ interface FitxaAcordProps{
 
 export function FitxaAcord(props:FitxaAcordProps) {
     const {acord} = props;
-    let fitxa:AcordDB = props.coneguts[acord];
+    const fitxa:AcordDB = props.coneguts[acord];
     
     if(fitxa) {
-        let style:any = {backgroundColor:detColorEstatAcord(fitxa.estat)};
+        const style:CSSProperties = {backgroundColor:detColorEstatAcord(fitxa.estat)};
         if(props.popup) {
             style.width = "100%";
             style.height = "100%";
         }
         const acordNet = acord.replace('#', 'h');
         return (<div style={style} className="fitxaAcord">
-            <img src={"/diagrames/"+acordNet+".png"}/>
+            <Image width={150} height={200} alt={acordNet} src={"/diagrames/"+acordNet+".png"}/>
         </div>);
     }
     

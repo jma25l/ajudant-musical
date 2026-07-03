@@ -1,6 +1,6 @@
 
 //https://stackoverflow.com/a/46522424 (Adaptat)
-var notes = "[A-G]",
+const notes = "[A-G]",
   accidentals = "(b|bb|#)?",
   chords = "(7|m7|maj|min|sus|m)?",
   suspends = "(1-9)?";

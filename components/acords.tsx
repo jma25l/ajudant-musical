@@ -1,11 +1,9 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import {useParams} from 'next/navigation';
 import {cercaAcords, cercaAcordsConeguts} from '../lib/busca';
-import { text } from 'stream/consumers';
 import { testAcords } from '@/lib/regex';
-import { fonamentals } from '@/lib/escales';
+import { fonamentals, getFonamental } from '@/lib/escales';
 import { AcordsDBList, detColorEstatAcord } from '@/lib/tipus';
 import { FitxaAcord } from './dibuixAc';
 import Link from 'next/link';
@@ -22,44 +20,39 @@ export default function AcordsCanco(props:AcordsProps) {
     const [transposicio, setTransposicio] = useState<number>(0);
     const [nomesLletra, setNomesLletra] = useState<boolean>(false);
     const [llista, setLlista] = useState<string[]>([]);
-    let llistaTemp:string[] = [];
 
-    async function carrega() {
-
-        let lletra = await cercaAcords(nom);
-        let coneguts = await cercaAcordsConeguts();
+    function carrega(lletra:string) {
         if(lletra == "ERROR") {
             setLletra(["## Lletra no trobada"])
             return;
         }
-        setConeguts(coneguts); 
-        llistaTemp = [];
+        setLlista([]);
         setLletra(lletra.split(`\n`));
     }
-    useEffect(()=>{
-        carrega();
-    }, [])
+
+    useEffect(()=> void cercaAcordsConeguts().then(setConeguts), [])
+    useEffect(()=> void cercaAcords(nom).then(carrega), [nom]) //Tal i com està construit, nom tampoc hauria de canviar
+    
 
     function preSetTransposicio(t:number) {
         if(Math.abs(t)>12) return;
-        llistaTemp = [];
+        setLlista([]);
         setTransposicio(t);
 
     }
 
     function checkAddLista(ac:string):void {
-        if(llistaTemp.includes(ac)) return;
-        llistaTemp.push(ac);
-        setLlista(llistaTemp);
+        if(llista.includes(ac)) return;
+        setLlista([...llista, ac]);
     }
 
     return (
         <>
             <div style={{display:'flex', flexWrap:'wrap', justifyContent:'space-around'}}>
-                <button className="btn" style={{backgroundColor:(nomesLletra?"red":"lightgreen"), width:"100px"}} onClick={(e)=> setNomesLletra(!nomesLletra)}>Acords</button>
+                <button className="btn" style={{backgroundColor:(nomesLletra?"red":"lightgreen"), width:"100px"}} onClick={()=> setNomesLletra(!nomesLletra)}>Acords</button>
                 <input style={{textAlign:"center", display:(nomesLletra?'none':'inline')}} readOnly type="number" value={transposicio}/>
-                <button className="btn cA" style={{display:(nomesLletra?'none':'inline')}} onClick={(e)=> preSetTransposicio(transposicio-1)}>-1</button>
-                <button className="btn cA" style={{display:(nomesLletra?'none':'inline')}} onClick={(e)=> preSetTransposicio(transposicio+1)}>+1</button>
+                <button className="btn cA" style={{display:(nomesLletra?'none':'inline')}} onClick={()=> preSetTransposicio(transposicio-1)}>-1</button>
+                <button className="btn cA" style={{display:(nomesLletra?'none':'inline')}} onClick={()=> preSetTransposicio(transposicio+1)}>+1</button>
 
             </div>
             <div className='flex-wrap' style={{justifyContent:"space-around", display:(nomesLletra?'none':'flex')}} >
@@ -87,23 +80,22 @@ interface LineaAcordsProps {
     nomesLletra:boolean
 }
 function LineaAcords(props:LineaAcordsProps) {
-    var {lletra, transposicio, nomesLletra} = props;
+    const {lletra, transposicio, nomesLletra} = props;
     //Veure si són títols
     if(lletra.startsWith('##')) return (<b>{lletra.slice(3)}</b>);  // 2 + espai en blanc
     if(lletra.startsWith('#')) {
-        document.title = lletra.slice(2); //Tècnica molt guarra
         return (<h2>{lletra.slice(2)}</h2>); // 1 + --
     }
     if(lletra.startsWith("https://")) return <Link href={lletra}>{lletra}</Link>;
 
     //Veure si són acords o lletra
-    var split = lletra.split(/[/\s]/g).filter(x=> x);
+    const split = lletra.split(/[/\s]/g).filter(x=> x);
     if(split.length == 0) return (<br></br>);
     let acords = true;
     let i = 0;
     let sep = false;
     while(acords && i < split.length && !sep) {
-        let x = split[i];
+        const x = split[i];
         i++;
         if(/x[0-9]+/i.test(x)) continue;
         if(/\[[^\]]*\]/i.test(x)) {
@@ -144,51 +136,28 @@ interface AcordProps {
 
 
 function Acord(props:AcordProps) {
-    const {original, transposicio} = props;
-    if(/\[[^\]]*\]/i.test(original)) return original;
+    const {original, transposicio,} = props;
+    const modificadors = original.replace(/^[A-G](#|b)?/, '');
 
     // MOLT BRUT
-    let fonamental = -1;
-    switch(original[0]) {
-        case "C": fonamental = 0; break;
-        case "D": fonamental = 2; break;
-        case "E": fonamental = 4; break;
-        case "F": fonamental = 5; break;
-        case "G": fonamental = 7; break;
-        case "A": fonamental = 9; break;
-        case "B": fonamental = 11; break;
-    }
+    const fonamental = getFonamental(original);
+    const f = fonamentals[(fonamental+transposicio+12)%12];
+    const acDisplay  = f.slice(0,1)+
+        modificadors
+        +(f.length==2?"#":"");
+    const extraD = f.length === 2 ? "" : " ";
+    const color = detColorEstatAcord(props.coneguts[acDisplay]?.estat);
 
-    if(original.includes('#')) fonamental++;
-    if(original.includes('b')) fonamental--;
-
-    let modificadors = original.replace(/^[A-G](#|b)?/, '');
-    const [acordDisplay, setAcDisplay] = useState<string>(original);
-    const [extraD, setExtraD] = useState<string>("");
-    const [color, setColor] = useState<string>("gray");
-
-    var f = fonamentals[fonamental];
-    function updateD(){
-        f = fonamentals[(fonamental+transposicio+12)%12];
-        let d = f.slice(0,1)+
-            modificadors
-            +(f.length==2?"#":"");
-
-        setAcDisplay(
-            d
-            );
-        props.checkLlista(d);
-        setExtraD((f.length==2?"":" "))
-        setColor(detColorEstatAcord(props.coneguts[d]?.estat))
-
-    }
-    useEffect(updateD, [transposicio])    
+        
+    useEffect(() => {
+        props.checkLlista(acDisplay);
+    }, [acDisplay, props]);
 
     return (
-        <><span className='acord' style={{backgroundColor:color}}>{acordDisplay}
-        <div className='popup'> <FitxaAcord acord={acordDisplay} coneguts={props.coneguts} popup={true}/>
+        <><span className='acord' style={{backgroundColor:color}}>{acDisplay }
+        <div className='popup'> <FitxaAcord acord={acDisplay} coneguts={props.coneguts} popup={true}/>
 </div>
-        </span>
+        </span>{extraD}
         </>
     );
 }

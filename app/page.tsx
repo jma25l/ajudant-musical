@@ -1,19 +1,14 @@
 "use client"
 import { cercaCanconer } from "@/lib/busca";
 import { Canco } from "@/lib/tipus";
-import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
 
   const [canconer, setCanconer] = useState<Canco[]>([]);
 
-  async function carrega() {
-    setCanconer(await cercaCanconer());
-  }
-  useEffect(() => {
-    carrega();
-  }, [])
+    useEffect(()=> void cercaCanconer().then(setCanconer), [])
 
 
   return (
@@ -23,7 +18,7 @@ export default function Home() {
         {canconer.map((x,i)=> 
           (
             <div style={{margin:"5px", border: "solid black 1px", width:"25%", minWidth:"200px", padding:"5px"}} key={i}>
-              <a href={"/visor/"+x.id}><b>{x.nom}</b></a>
+              <Link href={"/visor/"+x.id}><b>{x.nom}</b></Link>
             </div>
           )
         )}
