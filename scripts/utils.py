@@ -1,7 +1,7 @@
 import os
 import yaml
 
-def pP(): 
+def pP()->str: 
     return os.path.dirname(__file__)+"/../public/"
 
 def llegeixAcords(): 
@@ -9,6 +9,6 @@ def llegeixAcords():
         acords = yaml.safe_load(arxiu)
         return acords
     
-def escriuAcords(cnt): 
+def escriuAcords(cnt)->None: 
     with open(pP()+"test/acords.yml", "w") as f:
         f.write(cnt)

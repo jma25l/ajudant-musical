@@ -27,6 +27,6 @@ cancons:
 - Opció 2: `bun run build` i `bun start`: Útil per a treballar a llarg termini, hauria de ser més ràpid.
 
 ## Requisits python
-PIL (pillow), pyyaml
+PIL (pillow), pyyaml, mypy (per a anàlisi estàtica).
 
 *(c) Joaquín Millán Aldaz (2026)*

@@ -3,9 +3,10 @@ from utils import *
 
 #Funcions i variables auxiliars que si no empro ara, les empraré
 publicPath = pP()
-def rect(dib, x1, y1, x2, y2, col):
+def rect(dib:ImageDraw.ImageDraw, x1:int, y1:int, x2:int, y2:int, col)->None:
     dib.polygon([(x1, y1), (x2, y1), (x2, y2), (x1, y2)], col)
-def cercle(dib, p, r, c): 
+
+def cercle(dib:ImageDraw.ImageDraw, p:tuple[int, int], r:int, c)->None: 
     (x,y) = p
     dib.ellipse([(x-r, y-r), (x+r, y+r)], c)
 
