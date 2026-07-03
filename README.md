@@ -8,6 +8,7 @@ Amb tot això, un comença a pensar i es planteja si hi hauria alguna alternativ
 ## Estructura tècnica
 De moment, els arxius importants es troben al directori `public/test/`. Aquí hi ha diversos arxius: 
 - acords.yml: Inclou la informació sobre quins acords sé fer per mostrar-los de colors i identificar com de factible serà provar una cançó. També conté informació tècnica dels acords.
+    - Estats: 0 (En progrés), 1 (Dominat), 2 (Millor no intentar-lo)
 - index.yml, un arxiu que serveix d'índex per a poder veure ràpidament quines cançons tinc i en un futur poder classificar-les: 
 ```markdown 
 cancons: 

@@ -4,6 +4,7 @@ coneguts:
     ukelele: [2, 1, 0, 0]
   A#:
     ukelele: [3, 2, 1, 1]
+    estat: 0
   A7:
     ukelele: [0, 1, 0, 0]
   Am:
@@ -38,3 +39,6 @@ coneguts:
     ukelele: [0, 2, 3, 2]
   G#:
     ukelele: [1, 2, 3, 2]
+  Gm:
+    estat: 1
+    ukelele: [0, 2, 3, 1]
