@@ -43,3 +43,5 @@ next-env.d.ts
 
 #Python 
 __pycache__
+.mypy_cache 
+# Esta última ya lo añade solo, pero por si las moscas

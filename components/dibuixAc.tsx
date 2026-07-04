@@ -1,3 +1,5 @@
+'use client'
+
 import { AcordDB, AcordsDBList, detColorEstatAcord } from "@/lib/tipus";
 import Image from "next/image";
 import { CSSProperties } from "react";
