@@ -20,6 +20,7 @@ export default function AcordsCanco(props:AcordsProps) {
     const [transposicio, setTransposicio] = useState<number>(0);
     const [nomesLletra, setNomesLletra] = useState<boolean>(false);
     const [llista, setLlista] = useState<string[]>([]);
+    const [prims, setPrims] = useState<boolean>(true);
 
     function carrega(lletra:string) {
         if(lletra == "ERROR") {
@@ -36,12 +37,13 @@ export default function AcordsCanco(props:AcordsProps) {
 
     function preSetTransposicio(t:number) {
         if(Math.abs(t)>12) return;
-        setLlista([]);
+        setPrims(false);
         setTransposicio(t);
 
     }
 
     function checkAddLista(ac:string):void {
+        if(!prims) return;
         if(llista.includes(ac)) return;
         setLlista([...llista, ac]);
     }
@@ -58,7 +60,7 @@ export default function AcordsCanco(props:AcordsProps) {
             <div className='flex-wrap' style={{justifyContent:"space-around", display:(nomesLletra?'none':'flex')}} >
                 {
                     llista?.map((x)=> (
-                        <FitxaAcord acord={x} key={x} coneguts={coneguts}/>
+                        <FitxaAcord acord={x} key={x} coneguts={coneguts} transposa={transposicio}/>
                     ))
                 }
             </div>
@@ -155,8 +157,8 @@ function Acord(props:AcordProps) {
 
     return (
         <><span className='acord' style={{backgroundColor:color}}>{acDisplay }
-        <div className='popup'> <FitxaAcord acord={acDisplay} coneguts={props.coneguts} popup={true}/>
-</div>
+         <div className='popup'> <FitxaAcord acord={acDisplay} coneguts={props.coneguts} popup={true}/>
+</div> 
         </span>{extraD}
         </>
     );
