@@ -29,4 +29,7 @@ cancons:
 ## Requisits python
 PIL (pillow), pyyaml, mypy (per a anàlisi estàtica).
 
+
+[Millor em dedico a les matemàtiques](https://www.youtube.com/watch?v=NlRPtFoM-d8)
+
 *(c) Joaquín Millán Aldaz (2026)*
