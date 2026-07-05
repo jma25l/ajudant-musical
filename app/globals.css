@@ -54,7 +54,7 @@ h2 {
   /* color:white; */
 }
 
-.acord .popup {
+.popup {
   display: none;
   position: absolute;
   z-index: 10;

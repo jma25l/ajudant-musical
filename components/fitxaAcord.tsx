@@ -41,7 +41,7 @@ export function FitxaAcord(props:FitxaAcordProps) {
     }
     
     return (
-        <div className="fitxaAcord desconegut">
+        <div className="fitxaAcord desconegut" >
             <big>?</big>
             <span>{acDisplay}</span>
         </div>);    
