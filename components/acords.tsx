@@ -59,10 +59,10 @@ export default function AcordsCanco(props: AcordsProps) {
     return (
         <>
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-                <button className="btn" style={{ backgroundColor: (nomesLletra ? "red" : "lightgreen"), width: "100px" }} onClick={() => setNomesLletra(!nomesLletra)}>Acords</button>
+                <button className="btn noPrint" style={{ backgroundColor: (nomesLletra ? "red" : "lightgreen"), width: "100px" }} onClick={() => setNomesLletra(!nomesLletra)}>Acords</button>
                 <input style={{ textAlign: "center", display: (nomesLletra ? 'none' : 'inline') }} readOnly type="number" value={transposicio} />
-                <button className="btn cA" style={{ display: (nomesLletra ? 'none' : 'inline') }} onClick={() => preSetTransposicio(transposicio - 1)}>-1</button>
-                <button className="btn cA" style={{ display: (nomesLletra ? 'none' : 'inline') }} onClick={() => preSetTransposicio(transposicio + 1)}>+1</button>
+                <button className="btn cA noPrint" style={{ display: (nomesLletra ? 'none' : undefined) }} onClick={() => preSetTransposicio(transposicio - 1)}>-1</button>
+                <button className="btn cA noPrint" style={{ display: (nomesLletra ? 'none' : undefined) }} onClick={() => preSetTransposicio(transposicio + 1)}>+1</button>
 
             </div>
             <div className='flex-wrap' style={{ justifyContent: "space-around", display: (nomesLletra ? 'none' : 'flex') }} >
