@@ -159,22 +159,23 @@ interface AcordProps {
 
 
 function Acord(props: AcordProps) {
-    const { original, transposicio, } = props;
+    const { original, transposicio,checkLlista } = props;
     const modificadors = original.replace(/^[A-G](#|b)?/, '');
 
     // MOLT BRUT
     const fonamental = getFonamental(original);
     const f = fonamentals[(fonamental + transposicio + 12) % 12];
-    const acDisplay = f.slice(0, 1) +
-        modificadors
-        + (f.length == 2 ? "#" : "");
+    const acDisplay = f.slice(0, 1)
+        + (f.length == 2 ? "#" : "")  
+        + modificadors;
+        
     const extraD = f.length === 2 ? "" : " ";
     const color = detColorEstatAcord(props.coneguts[acDisplay]?.estat);
 
 
     useEffect(() => {
-        props.checkLlista(acDisplay);
-    }, [acDisplay, props]);
+        checkLlista(acDisplay);
+    }, [acDisplay, checkLlista]);
 
     return (
         <><span className='acord' style={{ backgroundColor: color }}
