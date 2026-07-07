@@ -20,7 +20,7 @@ export function FitxaAcord(props:FitxaAcordProps) {
 
     // MOLT BRUT
     const fonamental = getFonamental(acord);
-    const f = fonamentals[(fonamental+transposa+12)%12];
+    const f = fonamentals[(fonamental+transposa+24)%12];
     const acDisplay  = f.slice(0,1)+
         modificadors
         +(f.length==2?"#":"");
