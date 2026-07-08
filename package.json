@@ -17,14 +17,14 @@
     "yaml": "^2.9.0"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.1",
-    "@types/node": "^26.1.0",
+    "@tailwindcss/postcss": "^4.3.2",
+    "@types/node": "^26.1.1",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "eslint": "9.39.1",
     "eslint-config-next": "16.2.9",
-    "knip": "^6.24.0",
-    "tailwindcss": "^4.3.1",
+    "knip": "^6.25.0",
+    "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3"
   },
   "ignoreScripts": [
