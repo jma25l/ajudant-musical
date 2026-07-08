@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import { cercaAcords, cercaAcordsConeguts } from '../lib/busca';
 import { testAcords } from '@/lib/regex';
 import { fonamentals, getFonamental } from '@/lib/escales';
 import { AcordsDBList, detColorEstatAcord } from '@/lib/tipus';
@@ -11,31 +10,22 @@ import Link from 'next/link';
 
 interface AcordsProps {
     nom: string;
+    lletra:string;
+    coneguts:AcordsDBList;
+
+
 }
 
 export default function AcordsCanco(props: AcordsProps) {
-    const { nom } = props;
+    const {coneguts} = props;
 
-    const [lletra, setLletra] = useState<string[]>([]);
-    const [coneguts, setConeguts] = useState<AcordsDBList>({});
+    const lletra:string[] = props.lletra.split('\n');
     const [transposicio, setTransposicio] = useState<number>(0);
     const [nomesLletra, setNomesLletra] = useState<boolean>(false);
     const [llista, setLlista] = useState<string[]>([]);
     const [visiblePopup, setVisiblePopup] = useState<string | null>(null);
     const [visiblePopupPos, setVisiblePopupPos] = useState<DOMRect | null>(null);
     const [prims, setPrims] = useState<boolean>(true);
-
-    function carrega(lletra: string) {
-        if (lletra == "ERROR") {
-            setLletra(["## Lletra no trobada"])
-            return;
-        }
-        setLlista([]);
-        setLletra(lletra.split(`\n`));
-    }
-
-    useEffect(() => void cercaAcordsConeguts().then(setConeguts), [])
-    useEffect(() => void cercaAcords(nom).then(carrega), [nom]) //Tal i com està construit, nom tampoc hauria de canviar
 
 
     function preSetTransposicio(t: number) {
