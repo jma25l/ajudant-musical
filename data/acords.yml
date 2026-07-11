@@ -1,15 +1,11 @@
 coneguts:
   A:
-    estat: 1
     ukelele: [2, 1, 0, 0]
   A#:
-    estat: 0
     ukelele: [3, 2, 1, 1]
   A7:
-    estat: 1
     ukelele: [0, 1, 0, 0]
   Am:
-    estat: 1
     ukelele: [2, 0, 0, 0]
   B:
     ukelele: [4, 3, 2, 2]
@@ -18,30 +14,23 @@ coneguts:
   Bm:
     ukelele: [4, 2, 2, 2]
   C:
-    estat: 1
     ukelele: [0, 0, 0, 3]
-  D:
     estat: 1
+  D:
     ukelele: [2, 2, 2, 0]
   D#:
-    estat: 0
     ukelele: [0, 3, 3, 1]
   Dm:
-    estat: 1
     ukelele: [2, 2, 1, 0]
   E:
     ukelele: [1, 4, 0, 2]
   Em:
-    estat: 1
     ukelele: [0, 4, 0, 2]
   F:
-    estat: 1
     ukelele: [2, 0, 1, 0]
   G:
-    estat: 1
     ukelele: [0, 2, 3, 2]
   G#:
     ukelele: [1, 2, 3, 2]
   Gm:
-    estat: 1
     ukelele: [0, 2, 3, 1]
