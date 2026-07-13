@@ -100,7 +100,7 @@ function LineaAcords(props: LineaAcordsProps) {
     if (lletra.startsWith("https://")) return <Link href={lletra}>{lletra}</Link>;
 
     //Veure si són acords o lletra
-    const split = lletra.split(/[/\s]/g).filter(x => x);
+    const split = lletra.split(/[\s\/]/g).filter(x => x);
     if (split.length == 0) return (<br></br>);
     let acords = true;
     let i = 0;
@@ -114,6 +114,7 @@ function LineaAcords(props: LineaAcordsProps) {
             continue;
         }
         if (testAcords(x)) continue;
+
         acords = false;
     }
 
