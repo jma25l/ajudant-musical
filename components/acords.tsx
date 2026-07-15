@@ -6,6 +6,7 @@ import { fonamentals, getFonamental } from '@/lib/escales';
 import { AcordsDBList, detColorEstatAcord } from '@/lib/tipus';
 import { FitxaAcord } from './fitxaAcord';
 import Link from 'next/link';
+import { useAccioTeclat } from '@/hooks/keyHandler';
 
 
 interface AcordsProps {
@@ -27,7 +28,6 @@ export default function AcordsCanco(props: AcordsProps) {
     const [visiblePopupPos, setVisiblePopupPos] = useState<DOMRect | null>(null);
     const [prims, setPrims] = useState<boolean>(true);
 
-
     function preSetTransposicio(t: number) {
         if (Math.abs(t) > 12) return;
         setPrims(false);
@@ -41,6 +41,15 @@ export default function AcordsCanco(props: AcordsProps) {
         setLlista([...llista, ac]);
     }
 
+    useAccioTeclat({
+        tecla: "ArrowLeft", 
+        premuda: ()=> preSetTransposicio(transposicio-1)
+    })
+    useAccioTeclat({
+        tecla: "ArrowRight", 
+        premuda: ()=> preSetTransposicio(transposicio+1)
+    })
+
 
     function defvisiblePopup(str: string | null, visiblePopupPos: DOMRect) {
         setVisiblePopup(str);
@@ -51,9 +60,11 @@ export default function AcordsCanco(props: AcordsProps) {
             <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
                 <button className="btn noPrint" style={{ backgroundColor: (nomesLletra ? "red" : "lightgreen"), width: "100px" }} onClick={() => setNomesLletra(!nomesLletra)}>Acords</button>
                 <input style={{ textAlign: "center", display: (nomesLletra ? 'none' : 'inline') }} readOnly type="number" value={transposicio} />
-                <button className="btn cA noPrint" style={{ display: (nomesLletra ? 'none' : undefined) }} onClick={() => preSetTransposicio(transposicio - 1)}>-1</button>
-                <button className="btn cA noPrint" style={{ display: (nomesLletra ? 'none' : undefined) }} onClick={() => preSetTransposicio(transposicio + 1)}>+1</button>
-
+                <div className="noPrint" style={{ display: (nomesLletra ? 'none' : undefined) }}>
+                    <button className="btn cA" onClick={() => preSetTransposicio(transposicio-1)}>-1</button>
+                    <button className="btn cA" onClick={() => preSetTransposicio(0)}>0</button>
+                    <button className="btn cA" onClick={() => preSetTransposicio(transposicio+1)}>+1</button>
+                </div>
             </div>
             <div className='flex-wrap' style={{ justifyContent: "space-around", display: (nomesLletra ? 'none' : 'flex') }} >
                 {
