@@ -1,5 +1,7 @@
 cancons: 
   - id: far
     nom: El Far del Sud
+    autor: Sopa de Cabra
   - id: monde
     nom: Un monde sans danger
+    autor: Julien Lamassone

@@ -17,9 +17,10 @@ export default function Home() {
         <div style={{display:"flex", flexDirection:"row", flexWrap:"wrap", justifyContent:"center"}}>
         {canconer.map((x,i)=> 
           (
-            <div style={{margin:"5px", border: "solid black 1px", width:"25%", minWidth:"200px", padding:"5px"}} key={i}>
-              <Link href={"/visor/"+x.id}><b>{x.nom}</b></Link>
-            </div>
+            <Link href={"/visor/"+x.id} key={i}><div className={"fitxaCanco"} >
+              <b>{x.nom}</b><br/>
+              <span><i>{x.autor || 'Desconegut'}</i></span>
+            </div></Link>
           )
         )}
         </div>

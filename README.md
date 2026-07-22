@@ -7,16 +7,9 @@ Amb tot això, un comença a pensar i es planteja si hi hauria alguna alternativ
 
 ## Estructura tècnica
 De moment, els arxius importants es troben al directori `data/`. Tot i això, es pot definir una ruta alternativa (veure .env.example), que complementa aquest directori, els registres d'aquest extra es fusionen sobre `data/`. Aquí hi ha diversos arxius: 
-- acords.yml: Inclou la informació sobre quins acords sé fer per mostrar-los de colors i identificar com de factible serà provar una cançó. També conté informació tècnica dels acords.
+- [acords.yml](/data/acords.yml): Inclou la informació sobre quins acords sé fer per mostrar-los de colors i identificar com de factible serà provar una cançó. També conté informació tècnica dels acords.
     - Estats: 0 (En progrés), 1 (Dominat), 2 (Millor no intentar-lo)
-- index.yml, un arxiu que serveix d'índex per a poder veure ràpidament quines cançons tinc i en un futur poder classificar-les: 
-```markdown 
-cancons: 
-  - id: far
-    nom: El Far del Sud
-  - id: monde
-    nom: Un monde sans danger
-```
+- [index.yml](/data/index.yml), un arxiu que serveix d'índex per a poder veure ràpidament quines cançons tinc i en un futur poder classificar-les: 
 - Les cançons han d'estar en arxius anomenats `<id>.md`, en un format força compatible a Markdown (#/## per a títols, https per a enllaços). A grosso modo, es divideix en files d'acords i files de text. És important que als ponts instrumentals hi hagi dos espais entre els acords, no un, perquè hi hagi lloc per a posar els sostinguts en trasposar sense que s'enganxi tot. `G  D  C  G  x2`
 
 ## Com començar?

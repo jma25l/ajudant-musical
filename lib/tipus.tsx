@@ -1,6 +1,7 @@
 export interface Canco {
     id:string;
     nom:string;
+    autor?:string;
 }
 
 export interface CanconerApiInterface {
