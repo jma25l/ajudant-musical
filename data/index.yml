@@ -5,3 +5,6 @@ cancons:
   - id: monde
     nom: Un monde sans danger
     autor: Julien Lamassone
+  - id: caminsOberts
+    nom: Camins Oberts
+    autor: ChatGPT
