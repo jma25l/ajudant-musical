@@ -1,7 +1,7 @@
 import { testAcords } from "./regex";
 
 
-export type tipusBloc = 'lletra' | 'acords' | 'titol' | 'sotstitol' | 'link'|'encaixat';
+type tipusBloc = 'lletra' | 'acords' | 'titol' | 'sotstitol' | 'link'|'encaixat';
 export interface BlocRenderAcords {
     tipus: tipusBloc
     continguts?: string
