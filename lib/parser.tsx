@@ -54,17 +54,16 @@ export function parseja(continguts: string[]) {
 function sonAcords(linea:string):boolean {
     const split = linea.split(/[\s\/]/g).filter(x => x);
     if(split.length == 0) return false; //Crec que això donarà menys problemes
-    console.log(linea, split)
+    let ac = false;
     for(let x of split) {
         if (/x[0-9]+/i.test(x)) continue;
         if (/\[[^\]]*\]/i.test(x)) {  
             //sep = true; // He trencat que amagar acords deixi aquestes línies
             continue;
         }
-        if (testAcords(x)) continue;
-        console.log("E", x);
+        if (ac = testAcords(x)) continue;
         return false;
     }
  
-    return true;
+    return ac;
 }

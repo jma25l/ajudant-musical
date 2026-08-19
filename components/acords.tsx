@@ -22,7 +22,6 @@ export default function AcordsCanco(props: AcordsProps) {
     const {coneguts} = props;
 
     const lletra:BlocRenderAcords[] = parseja(props.lletra.split('\n'));
-    console.log(lletra);
     const [transposicio, setTransposicio] = useState<number>(0);
     const [nomesLletra, setNomesLletra] = useState<boolean>(false);
     const [llista, setLlista] = useState<string[]>([]);
