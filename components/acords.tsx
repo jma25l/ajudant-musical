@@ -7,6 +7,7 @@ import { AcordsDBList, detColorEstatAcord } from '@/lib/tipus';
 import { FitxaAcord } from './fitxaAcord';
 import Link from 'next/link';
 import { useAccioTeclat } from '@/hooks/keyHandler';
+import { BlocRenderAcords, parseja } from '@/lib/parser';
 
 
 interface AcordsProps {
@@ -20,7 +21,8 @@ interface AcordsProps {
 export default function AcordsCanco(props: AcordsProps) {
     const {coneguts} = props;
 
-    const lletra:string[] = props.lletra.split('\n');
+    const lletra:BlocRenderAcords[] = parseja(props.lletra.split('\n'));
+    console.log(lletra);
     const [transposicio, setTransposicio] = useState<number>(0);
     const [nomesLletra, setNomesLletra] = useState<boolean>(false);
     const [llista, setLlista] = useState<string[]>([]);
@@ -84,7 +86,7 @@ export default function AcordsCanco(props: AcordsProps) {
 
             <div className='acords'>
                 {lletra?.map((x, i) => (
-                    <LineaAcords key={i} lletra={x} transposicio={transposicio} coneguts={coneguts} setVisiblePopup={defvisiblePopup} checkLlista={checkAddLista} nomesLletra={nomesLletra} />
+                    <BlocAcords key={i} continguts={x} transposicio={transposicio} coneguts={coneguts} setVisiblePopup={defvisiblePopup} checkLlista={checkAddLista} nomesLletra={nomesLletra} />
                 ))}
             </div>
 
@@ -93,61 +95,45 @@ export default function AcordsCanco(props: AcordsProps) {
 }
 
 
-interface LineaAcordsProps {
-    lletra: string;
+interface BlocAcordsProps {
+    continguts: BlocRenderAcords;
     transposicio: number;
     coneguts: AcordsDBList;
     checkLlista: { (ac: string): void };
     nomesLletra: boolean;
     setVisiblePopup: { (str: string | null, visiblePopupPos: DOMRect): void };
 }
-function LineaAcords(props: LineaAcordsProps) {
-    const { lletra, transposicio, nomesLletra } = props;
+function BlocAcords(props: BlocAcordsProps) {
+    const { continguts, transposicio, nomesLletra } = props;
     //Veure si són títols
-    if (lletra.startsWith('##')) return (<b>{lletra.slice(3)}</b>);  // 2 + espai en blanc
-    if (lletra.startsWith('#')) {
-        return (<h2>{lletra.slice(2)}</h2>); // 1 + --
+
+    const lletra = continguts.continguts;
+    switch(continguts.tipus) {
+        case 'lletra': return (<span>{lletra} </span>)
+        case 'acords':
+            if (nomesLletra) return;
+            return (
+                <span>
+                    {lletra?.split(/[/\s]/g).map((x, i) => {
+                        if (x.length == 0) return (" ");
+                        else if (testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio} checkLlista={props.checkLlista} setVisiblePopup={props.setVisiblePopup} coneguts={props.coneguts} />); // L'espai a la dreta és necessari
+                        else return (x + " ")
+                    })}
+                </span>
+            )
+        case 'titol': return (<h2>{lletra?.slice(2)}</h2>);
+        case 'sotstitol': return (<b>{lletra?.slice(3)}</b>);
+        case 'link': return (<Link href={lletra || ''}>{lletra}</Link>);
+        case 'encaixat':
+            return (<div className='encaixatAcords'>
+                {continguts.fills?.map(
+                    (x,i) => {
+                        return (<BlocAcords key={i} continguts={x} transposicio={transposicio} coneguts={props.coneguts} setVisiblePopup={props.setVisiblePopup} checkLlista={props.checkLlista} nomesLletra={props.nomesLletra} />)
+                    }
+                )}
+            </div>)
     }
-    if (lletra.startsWith("https://")) return <Link href={lletra}>{lletra}</Link>;
-
-    //Veure si són acords o lletra
-    const split = lletra.split(/[\s\/]/g).filter(x => x);
-    if (split.length == 0) return (<br></br>);
-    let acords = true;
-    let i = 0;
-    let sep = false;
-    while (acords && i < split.length && !sep) {
-        const x = split[i];
-        i++;
-        if (/x[0-9]+/i.test(x)) continue;
-        if (/\[[^\]]*\]/i.test(x)) {
-            sep = true;
-            continue;
-        }
-        if (testAcords(x)) continue;
-
-        acords = false;
-    }
-
-
-    if (acords) {
-        if (nomesLletra) return;
-        return (
-            <span>
-                {lletra.split(/[/\s]/g).map((x, i) => {
-                    if (x.length == 0) return (" ");
-                    else if (testAcords(x)) return (<Acord key={i} original={x} transposicio={transposicio} checkLlista={props.checkLlista} setVisiblePopup={props.setVisiblePopup} coneguts={props.coneguts} />); // L'espai a la dreta és necessari
-                    else return (x + " ")
-                })}
-            </span>
-
-        )
-    }
-
-    return (
-        <span>{lletra}</span>
-
-    )
+    
 }
 
 interface AcordProps {

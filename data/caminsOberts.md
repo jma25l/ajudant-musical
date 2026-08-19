@@ -23,15 +23,15 @@ Porto el nord a la mirada,
 C               D
 i el silenci per parlar.
 
-[Tornada]
-G               D
-Si demà canvia la marea,
-Em              B7
-ja trobaré un altre port.
-C               G
-Cada llum encén la costa,
-Am7             D
-cada pas em fa més fort.
+>[Tornada]
+>G               D
+>Si demà canvia la marea,
+>Em              B7
+>ja trobaré un altre port.
+>C               G
+>Cada llum encén la costa,
+>Am7             D
+>cada pas em fa més fort.
 
 G               D
 Obre portes l'horitzó,

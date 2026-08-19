@@ -32,7 +32,11 @@ h2 {
   font-weight: bold;
 }
 
-.acords>* {
+.acords{
+  width:100%
+}
+
+.acords>span, .encaixatAcords>span {
   display: block;
   white-space: pre-wrap;
   font-family: "Space Mono", monospace;
@@ -65,8 +69,9 @@ h2 {
 }
 
 .acords a {
-  display: inline-block;
+  display: block;
   max-width: 50vw;
+  font-family: "Space Mono", monospace;
 }
 
 .acord:hover .popup {
@@ -98,6 +103,14 @@ h2 {
 
 .fitxaAcord.desconegut>big {
   font-size: 3em;
+}
+
+.encaixatAcords{
+  border-left:orange solid 5px;
+  padding: 10px;
+  transform: translate(-10px, 0);
+  background-color: rgba(255, 0, 0, 0.05);
+  width:100%
 }
 
 /* Visual Botons (Sense bootstrap, a veure què puc fer) */
