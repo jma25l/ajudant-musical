@@ -1,7 +1,7 @@
 import { testAcords } from "./regex";
 
 type tipusBloc =
-  "lletra" | "acords" | "titol" | "sotstitol" | "link" | "encaixat";
+  "lletra" | "acords" | "titol" | "sotstitol" | "link" | "encaixat" | "buida" | "capçalera";
 export interface BlocRenderAcords {
   tipus: tipusBloc;
   continguts?: string;
@@ -10,6 +10,7 @@ export interface BlocRenderAcords {
 }
 
 export function parseja(continguts: string[]) {
+  let capçalera = false;
   let sortida: BlocRenderAcords[] = [];
   let currentBloc: BlocRenderAcords[] = [];
   let intro = true;
@@ -20,7 +21,11 @@ export function parseja(continguts: string[]) {
     if (bloc) linea = linea.substring(1);
 
     let tipus: tipusBloc | undefined = undefined;
-    if (linea.startsWith("##")) tipus = "sotstitol";
+    if (linea.length == 0) tipus = "buida";
+    else if (linea === "<#>") {
+      tipus = "capçalera";
+      capçalera = true;
+    } else if (linea.startsWith("##")) tipus = "sotstitol";
     else if (linea.startsWith("#")) tipus = "titol";
     else if (linea.startsWith("https://")) tipus = "link";
     else if (sonAcords(linea)) tipus = "acords";
@@ -46,7 +51,7 @@ export function parseja(continguts: string[]) {
     }
   }
 
-  return sortida;
+  return {sortida, capçalera};
 }
 
 function sonAcords(linea: string): boolean {

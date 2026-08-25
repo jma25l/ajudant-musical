@@ -8,6 +8,7 @@ import { FitxaAcord } from "./fitxaAcord";
 import Link from "next/link";
 import { useAccioTeclat } from "@/hooks/keyHandler";
 import { BlocRenderAcords, parseja } from "@/lib/parser";
+import { Capçalera } from "./capçalera";
 
 interface AcordsProps {
   nom: string;
@@ -18,7 +19,7 @@ interface AcordsProps {
 export default function AcordsCanco(props: AcordsProps) {
   const { coneguts } = props;
 
-  const lletra: BlocRenderAcords[] = parseja(props.lletra.split("\n"));
+  const {sortida:lletra, capçalera} = parseja(props.lletra.split("\n"));
   const [transposicio, setTransposicio] = useState<number>(0);
   const [nomesLletra, setNomesLletra] = useState<boolean>(false);
   const [llista, setLlista] = useState<string[]>([]);
@@ -100,7 +101,8 @@ export default function AcordsCanco(props: AcordsProps) {
           </button>
         </div>
       </div>
-      <div
+      {!capçalera?
+      <><div
         className="flex-wrap"
         style={{
           justifyContent: "space-around",
@@ -116,7 +118,9 @@ export default function AcordsCanco(props: AcordsProps) {
           />
         ))}
       </div>
-      <div
+      </>
+      :<></>}
+<div
         className="popup"
         style={{
           display: visiblePopup ? "block" : "none",
@@ -134,7 +138,6 @@ export default function AcordsCanco(props: AcordsProps) {
           transposa={transposicio}
         />
       </div>
-
       <div className="acords">
         {lletra?.map((x, i) => (
           <BlocAcords
@@ -145,6 +148,9 @@ export default function AcordsCanco(props: AcordsProps) {
             setVisiblePopup={defvisiblePopup}
             checkLlista={checkAddLista}
             nomesLletra={nomesLletra}
+            llista={llista}
+            visiblePopup={visiblePopup}
+            visiblePopupPos={visiblePopupPos}
           />
         ))}
       </div>
@@ -159,6 +165,9 @@ interface BlocAcordsProps {
   checkLlista: { (ac: string): void };
   nomesLletra: boolean;
   setVisiblePopup: { (str: string | null, visiblePopupPos: DOMRect): void };
+  llista:string[];
+  visiblePopup:string|null;
+  visiblePopupPos:DOMRect|null;
 }
 function BlocAcords(props: BlocAcordsProps) {
   const { continguts, transposicio, nomesLletra } = props;
@@ -208,11 +217,20 @@ function BlocAcords(props: BlocAcordsProps) {
                 setVisiblePopup={props.setVisiblePopup}
                 checkLlista={props.checkLlista}
                 nomesLletra={props.nomesLletra}
+                llista={props.llista}
+                visiblePopup={props.visiblePopup}
+                visiblePopupPos={props.visiblePopupPos}
+
               />
             );
           })}
         </div>
       );
+    case "capçalera": 
+      return (
+        <Capçalera llista={props.llista} transposicio={props.transposicio} coneguts={props.coneguts} nomesLletra={props.nomesLletra} visiblePopup={props.visiblePopup}
+        visiblePopupPos={props.visiblePopupPos}/>
+      )
   }
 }
 
