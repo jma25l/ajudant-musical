@@ -1,28 +1,27 @@
 import { AcordsDBList } from "@/lib/tipus";
-import { FitxaAcord } from "./fitxaAcord"
+import { FitxaAcord } from "./fitxaAcord";
 
 interface CapçaleraProps {
-    nomesLletra:boolean;
-    transposicio:number;
-    llista:string[];
-    coneguts: AcordsDBList;
-    visiblePopup:string|null;
-    visiblePopupPos:DOMRect|null;
-
-
+  nomesLletra: boolean;
+  transposicio: number;
+  llista: string[];
+  coneguts: AcordsDBList;
+  visiblePopup: string | null;
+  visiblePopupPos: DOMRect | null;
 }
 
-export function Capçalera(props:CapçaleraProps){
-    const {
-        nomesLletra, 
-        transposicio, 
-        llista, 
-        coneguts,
-        visiblePopup,
-        visiblePopupPos
-    } = props;
+export function Capçalera(props: CapçaleraProps) {
+  const {
+    nomesLletra,
+    transposicio,
+    llista,
+    coneguts,
+    visiblePopup,
+    visiblePopupPos,
+  } = props;
 
-return <>
+  return (
+    <>
       <div
         className="flex-wrap"
         style={{
@@ -57,5 +56,6 @@ return <>
           transposa={transposicio}
         />
       </div>
-      </>
+    </>
+  );
 }

@@ -19,7 +19,7 @@ interface AcordsProps {
 export default function AcordsCanco(props: AcordsProps) {
   const { coneguts } = props;
 
-  const {sortida:lletra, capçalera} = parseja(props.lletra.split("\n"));
+  const { sortida: lletra, capçalera } = parseja(props.lletra.split("\n"));
   const [transposicio, setTransposicio] = useState<number>(0);
   const [nomesLletra, setNomesLletra] = useState<boolean>(false);
   const [llista, setLlista] = useState<string[]>([]);
@@ -101,26 +101,29 @@ export default function AcordsCanco(props: AcordsProps) {
           </button>
         </div>
       </div>
-      {!capçalera?
-      <><div
-        className="flex-wrap"
-        style={{
-          justifyContent: "space-around",
-          display: nomesLletra ? "none" : "flex",
-        }}
-      >
-        {llista?.map((x) => (
-          <FitxaAcord
-            acord={x}
-            key={x}
-            coneguts={coneguts}
-            transposa={transposicio}
-          />
-        ))}
-      </div>
-      </>
-      :<></>}
-<div
+      {!capçalera ? (
+        <>
+          <div
+            className="flex-wrap"
+            style={{
+              justifyContent: "space-around",
+              display: nomesLletra ? "none" : "flex",
+            }}
+          >
+            {llista?.map((x) => (
+              <FitxaAcord
+                acord={x}
+                key={x}
+                coneguts={coneguts}
+                transposa={transposicio}
+              />
+            ))}
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
+      <div
         className="popup"
         style={{
           display: visiblePopup ? "block" : "none",
@@ -165,9 +168,9 @@ interface BlocAcordsProps {
   checkLlista: { (ac: string): void };
   nomesLletra: boolean;
   setVisiblePopup: { (str: string | null, visiblePopupPos: DOMRect): void };
-  llista:string[];
-  visiblePopup:string|null;
-  visiblePopupPos:DOMRect|null;
+  llista: string[];
+  visiblePopup: string | null;
+  visiblePopupPos: DOMRect | null;
 }
 function BlocAcords(props: BlocAcordsProps) {
   const { continguts, transposicio, nomesLletra } = props;
@@ -220,17 +223,24 @@ function BlocAcords(props: BlocAcordsProps) {
                 llista={props.llista}
                 visiblePopup={props.visiblePopup}
                 visiblePopupPos={props.visiblePopupPos}
-
               />
             );
           })}
         </div>
       );
-    case "capçalera": 
+    case "capçalera":
       return (
-        <Capçalera llista={props.llista} transposicio={props.transposicio} coneguts={props.coneguts} nomesLletra={props.nomesLletra} visiblePopup={props.visiblePopup}
-        visiblePopupPos={props.visiblePopupPos}/>
-      )
+        <Capçalera
+          llista={props.llista}
+          transposicio={props.transposicio}
+          coneguts={props.coneguts}
+          nomesLletra={props.nomesLletra}
+          visiblePopup={props.visiblePopup}
+          visiblePopupPos={props.visiblePopupPos}
+        />
+      );
+    case "buida":
+      return <br />; // Segurament pugui fer alguna cosa millor, però almenys ja he decidit si és acords o lletra: cap
   }
 }
 

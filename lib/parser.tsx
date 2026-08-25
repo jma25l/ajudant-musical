@@ -1,7 +1,14 @@
 import { testAcords } from "./regex";
 
 type tipusBloc =
-  "lletra" | "acords" | "titol" | "sotstitol" | "link" | "encaixat" | "buida" | "capçalera";
+  | "lletra"
+  | "acords"
+  | "titol"
+  | "sotstitol"
+  | "link"
+  | "encaixat"
+  | "buida"
+  | "capçalera";
 export interface BlocRenderAcords {
   tipus: tipusBloc;
   continguts?: string;
@@ -51,7 +58,7 @@ export function parseja(continguts: string[]) {
     }
   }
 
-  return {sortida, capçalera};
+  return { sortida, capçalera };
 }
 
 function sonAcords(linea: string): boolean {
