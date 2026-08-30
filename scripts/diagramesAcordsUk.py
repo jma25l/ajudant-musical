@@ -1,16 +1,10 @@
 from PIL import Image, ImageDraw, ImageFont
-from utils import *
+from utils.arxius import *
+from utils.dibuixos import *
 
 #Funcions i variables auxiliars que si no empro ara, les empraré
 publicPath = pP()
-def rect(dib:ImageDraw.ImageDraw, x1:int, y1:int, x2:int, y2:int, col)->None:
-    """Dibuixa un rectangle de diagonal (x1,y1) -- (x2,y2) i color col"""
-    dib.polygon([(x1, y1), (x2, y1), (x2, y2), (x1, y2)], col)
 
-def cercle(dib:ImageDraw.ImageDraw, p:tuple[int, int], r:int, c)->None: 
-    """Dibuixa un centre p=(x,y), radi r i color col"""
-    (x,y) = p
-    dib.ellipse([(x-r, y-r), (x+r, y+r)], c)
 
 # Lectura de l'arxiu de dades: 
 print(publicPath)
@@ -43,5 +37,6 @@ for k in acords:
     #dib.text((75, 75), ' '.join(str(x) for x in v["ukelele"]), font=font, anchor="mm", fill="black")
     rect(dib, 0, 150, 150, 220, 'lightgray')
     dib.text((75, 175), k, font=font, anchor="mm", fill="black")
-    kNet = k.replace('#', 'h')
-    img.save(publicPath+"/diagrames/"+kNet+".png")
+    kNet = k.replace('#', 'h') # Broma tonta, # no vol dir h(ashtag), però em serveix per a que fs no peti
+    img.save(publicPath/str("diagrames/"+kNet+".png"))
+        #Parsejo a string per a que no em faci coses rares el mypy.

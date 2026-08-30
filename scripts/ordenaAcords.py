@@ -1,5 +1,6 @@
 # Script que endreça l'arxiu acords.yml alfabèticament per a que no hagi de pensar gaire. 
-from utils import *
+from utils.arxius import *
+import yaml
 
 # Dins de cada fitxa, ordenar alfabèticament, potser seria millor fixar algun altre ordre més natural. 
 def inSort(acord): 

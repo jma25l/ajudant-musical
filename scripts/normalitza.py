@@ -1,4 +1,4 @@
-from utils import *
+from scripts.utils.arxius import *
 
 CANVIS = {
     "DO": "C",
