@@ -10,6 +10,7 @@ interface FitxaAcordProps {
   acord: string;
   popup?: boolean;
   transposa?: number;
+  simplifica:boolean;
 }
 
 export function FitxaAcord(props: FitxaAcordProps) {
@@ -20,9 +21,14 @@ export function FitxaAcord(props: FitxaAcordProps) {
   // MOLT BRUT
   const fonamental = getFonamental(acord);
   const f = fonamentals[(fonamental + transposa + 24) % 12];
-  const acDisplay = f.slice(0, 1) + (f.length == 2 ? "#" : "") + modificadors;
+  let acDisplay = f.slice(0, 1) + (f.length == 2 ? "#" : "") + modificadors;
 
-  const fitxa: AcordDB = props.coneguts[acDisplay];
+  let fitxa: AcordDB = props.coneguts[acDisplay];
+
+  if(fitxa?.simp && props.coneguts[fitxa.simp]) {
+    acDisplay = fitxa.simp;
+    fitxa = props.coneguts[acDisplay];
+  }
 
   if (fitxa) {
     const style: CSSProperties = {

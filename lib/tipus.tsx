@@ -11,6 +11,7 @@ export interface CanconerApiInterface {
 export interface AcordDB {
   estat?: number;
   ukelele?: number[];
+  simp?:string; // Acord (més senzill) que el pot substituir
 }
 
 export type AcordsDBList = Record<string, AcordDB>;

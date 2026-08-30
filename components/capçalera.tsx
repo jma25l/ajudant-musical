@@ -1,3 +1,4 @@
+"use client"
 import { AcordsDBList } from "@/lib/tipus";
 import { FitxaAcord } from "./fitxaAcord";
 
@@ -8,6 +9,7 @@ interface CapçaleraProps {
   coneguts: AcordsDBList;
   visiblePopup: string | null;
   visiblePopupPos: DOMRect | null;
+  simplifica:boolean;
 }
 
 export function Capçalera(props: CapçaleraProps) {
@@ -18,6 +20,7 @@ export function Capçalera(props: CapçaleraProps) {
     coneguts,
     visiblePopup,
     visiblePopupPos,
+    simplifica
   } = props;
 
   return (
@@ -35,6 +38,7 @@ export function Capçalera(props: CapçaleraProps) {
             key={x}
             coneguts={coneguts}
             transposa={transposicio}
+            simplifica={simplifica}
           />
         ))}
       </div>
@@ -54,6 +58,7 @@ export function Capçalera(props: CapçaleraProps) {
           acord={visiblePopup || ""}
           coneguts={coneguts}
           transposa={transposicio}
+          simplifica={simplifica}
         />
       </div>
     </>
