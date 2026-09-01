@@ -1,15 +1,15 @@
-"use client"
+"use client";
 import { AcordsDBList } from "@/lib/tipus";
 import { FitxaAcord } from "./fitxaAcord";
 
 interface CapçaleraProps {
   nomesLletra: boolean;
   transposicio: number;
-  llista: string[];
+  llista: Set<string>;
   coneguts: AcordsDBList;
   visiblePopup: string | null;
   visiblePopupPos: DOMRect | null;
-  simplifica:boolean;
+  simplifica: boolean;
 }
 
 export function Capçalera(props: CapçaleraProps) {
@@ -20,7 +20,7 @@ export function Capçalera(props: CapçaleraProps) {
     coneguts,
     visiblePopup,
     visiblePopupPos,
-    simplifica
+    simplifica,
   } = props;
 
   return (
@@ -32,7 +32,7 @@ export function Capçalera(props: CapçaleraProps) {
           display: nomesLletra ? "none" : "flex",
         }}
       >
-        {llista?.map((x) => (
+        {Array.from(llista).map((x) => (
           <FitxaAcord
             acord={x}
             key={x}
@@ -41,25 +41,6 @@ export function Capçalera(props: CapçaleraProps) {
             simplifica={simplifica}
           />
         ))}
-      </div>
-      <div
-        className="popup"
-        style={{
-          display: visiblePopup ? "block" : "none",
-          position: "fixed",
-          left:
-            (visiblePopupPos?.x || 0) +
-            5 +
-            (2 * (visiblePopupPos?.width || 0)) / 3,
-          top: (visiblePopupPos?.y || 0) - 10,
-        }}
-      >
-        <FitxaAcord
-          acord={visiblePopup || ""}
-          coneguts={coneguts}
-          transposa={transposicio}
-          simplifica={simplifica}
-        />
       </div>
     </>
   );

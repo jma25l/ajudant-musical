@@ -1,4 +1,4 @@
-from scripts.utils.arxius import *
+from utils.arxius import *
 
 CANVIS = {
     "DO": "C",
@@ -12,7 +12,7 @@ CANVIS = {
 
 
 codi = input("Digues l'id a normalitzar - passar a notació americana: ")
-path = pD()+"/"+codi+".md"
+path = pD()/str("/"+codi+".md")
 
 acords = ""
 with open(path, 'r') as arxiu: 

@@ -19,11 +19,14 @@ interface AcordsProps {
 export default function AcordsCanco(props: AcordsProps) {
   const { coneguts } = props;
 
-  const { sortida: lletra, capçalera } = parseja(props.lletra.split("\n"));
+  const {
+    sortida: lletra,
+    capçalera,
+    llistaAcords,
+  } = parseja(props.lletra.split("\n"));
   const [transposicio, setTransposicio] = useState<number>(0);
   const [nomesLletra, setNomesLletra] = useState<boolean>(false);
   const [simplifica, setSimplifica] = useState<boolean>(true); //TODO: Fer que realment es pugui act/desact
-  const [llista, setLlista] = useState<string[]>([]);
   const [visiblePopup, setVisiblePopup] = useState<string | null>(null);
   const [visiblePopupPos, setVisiblePopupPos] = useState<DOMRect | null>(null);
   const [prims, setPrims] = useState<boolean>(true);
@@ -32,12 +35,6 @@ export default function AcordsCanco(props: AcordsProps) {
     if (Math.abs(t) > 12) return;
     setPrims(false);
     setTransposicio(t);
-  }
-
-  function checkAddLista(ac: string): void {
-    if (!prims) return;
-    if (llista.includes(ac)) return;
-    setLlista([...llista, ac]);
   }
 
   useAccioTeclat({
@@ -111,7 +108,7 @@ export default function AcordsCanco(props: AcordsProps) {
               display: nomesLletra ? "none" : "flex",
             }}
           >
-            {llista?.map((x) => (
+            {Array.from(llistaAcords).map((x) => (
               <FitxaAcord
                 acord={x}
                 key={x}
@@ -148,19 +145,17 @@ export default function AcordsCanco(props: AcordsProps) {
         {lletra?.map((x, i) => (
           <BlocAcords
             key={i}
-            continguts={x}
+            node={x}
             data={{
               transposicio: transposicio,
-              coneguts:coneguts,
+              coneguts: coneguts,
               setVisiblePopup: defvisiblePopup,
-              checkLlista: checkAddLista,
               nomesLletra: nomesLletra,
-              llista: llista,
               visiblePopup: visiblePopup,
               visiblePopupPos: visiblePopupPos,
-              simplifica: simplifica
+              simplifica: simplifica,
+              llistaAcords: llistaAcords,
             }}
-            
           />
         ))}
       </div>
@@ -171,34 +166,32 @@ export default function AcordsCanco(props: AcordsProps) {
 interface BlocAcordsData {
   transposicio: number;
   coneguts: AcordsDBList;
-  checkLlista: { (ac: string): void };
   nomesLletra: boolean;
   setVisiblePopup: { (str: string | null, visiblePopupPos: DOMRect): void };
-  llista: string[];
   visiblePopup: string | null;
   visiblePopupPos: DOMRect | null;
-  simplifica:boolean
+  simplifica: boolean;
+  llistaAcords: Set<string>;
 }
 
 interface BlocAcordsProps {
-  continguts: BlocRenderAcords;
-
-  data:BlocAcordsData
+  node: BlocRenderAcords;
+  data: BlocAcordsData;
 }
+
 function BlocAcords(props: BlocAcordsProps) {
   const { transposicio, nomesLletra } = props.data;
-  const continguts = props.continguts;
+  const node = props.node;
   //Veure si són títols
 
-  const lletra = continguts.continguts;
-  switch (continguts.tipus) {
+  switch (node.tipus) {
     case "lletra":
-      return <span>{lletra} </span>;
+      return <span>{node.continguts} </span>;
     case "acords":
       if (nomesLletra) return;
       return (
         <span>
-          {lletra?.split(/[/\s]/g).map((x, i) => {
+          {node.continguts.split(/[/\s]/g).map((x, i) => {
             if (x.length == 0) return " ";
             else if (testAcords(x))
               return (
@@ -206,7 +199,6 @@ function BlocAcords(props: BlocAcordsProps) {
                   key={i}
                   original={x}
                   transposicio={transposicio}
-                  checkLlista={props.data.checkLlista}
                   setVisiblePopup={props.data.setVisiblePopup}
                   coneguts={props.data.coneguts}
                   simplifica={props.data.simplifica}
@@ -217,20 +209,20 @@ function BlocAcords(props: BlocAcordsProps) {
         </span>
       );
     case "titol":
-      return <h2>{lletra?.slice(2)}</h2>;
+      return <h2>{node.continguts.slice(2)}</h2>;
     case "sotstitol":
-      return <b>{lletra?.slice(3)}</b>;
+      return <b>{node.continguts.slice(3)}</b>;
     case "link":
-      return <Link href={lletra || ""}>{lletra}</Link>;
+      return <Link href={node.continguts}>{node.continguts}</Link>;
     case "encaixat":
       return (
         <div className="encaixatAcords">
-          {continguts.fills?.map((x, i) => {
+          {node.fills.map((x, i) => {
             return (
               <BlocAcords
                 key={i}
                 data={props.data} // Heretar totes les propietats
-                continguts={x}
+                node={x}
               />
             );
           })}
@@ -239,7 +231,7 @@ function BlocAcords(props: BlocAcordsProps) {
     case "capçalera":
       return (
         <Capçalera
-          llista={props.data.llista}
+          llista={props.data.llistaAcords}
           transposicio={props.data.transposicio}
           coneguts={props.data.coneguts}
           nomesLletra={props.data.nomesLletra}
@@ -257,13 +249,12 @@ interface AcordProps {
   original: string;
   transposicio: number;
   coneguts: AcordsDBList;
-  checkLlista: { (ac: string): void };
   setVisiblePopup: { (str: string | null, visiblePopupPos: DOMRect): void };
-  simplifica:boolean;
+  simplifica: boolean;
 }
 
 function Acord(props: AcordProps) {
-  const { original, transposicio, checkLlista, simplifica } = props;
+  const { original, transposicio, simplifica } = props;
   const modificadors = original.replace(/^[A-G](#|b)?/, "");
 
   // MOLT BRUT
@@ -271,17 +262,13 @@ function Acord(props: AcordProps) {
   const f = fonamentals[(fonamental + transposicio + 12) % 12];
   let acDisplay = f.slice(0, 1) + (f.length == 2 ? "#" : "") + modificadors;
 
-  if(simplifica) {
+  if (simplifica) {
     const simp = props.coneguts[acDisplay]?.simp;
-    if(simp && props.coneguts[simp]) acDisplay = simp;
+    if (simp && props.coneguts[simp]) acDisplay = simp;
   }
 
   const extraD = f.length === 2 ? "" : " ";
   const color = detColorEstatAcord(props.coneguts[acDisplay]?.estat);
-
-  useEffect(() => {
-    checkLlista(acDisplay);
-  }, [acDisplay, checkLlista]);
 
   return (
     <>

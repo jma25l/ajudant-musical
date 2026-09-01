@@ -10,7 +10,7 @@ interface FitxaAcordProps {
   acord: string;
   popup?: boolean;
   transposa?: number;
-  simplifica:boolean;
+  simplifica: boolean;
 }
 
 export function FitxaAcord(props: FitxaAcordProps) {
@@ -25,7 +25,7 @@ export function FitxaAcord(props: FitxaAcordProps) {
 
   let fitxa: AcordDB = props.coneguts[acDisplay];
 
-  if(fitxa?.simp && props.coneguts[fitxa.simp]) {
+  if (fitxa?.simp && props.coneguts[fitxa.simp]) {
     acDisplay = fitxa.simp;
     fitxa = props.coneguts[acDisplay];
   }
