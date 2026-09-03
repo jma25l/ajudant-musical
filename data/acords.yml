@@ -16,6 +16,8 @@ coneguts:
   C:
     estat: 1
     ukelele: [0, 0, 0, 3]
+  C#:
+    ukelele: [1, 1, 1, 4]
   C#m:
     ukelele: [1, 1, 0, 4]
   D:

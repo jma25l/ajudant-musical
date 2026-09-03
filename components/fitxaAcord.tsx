@@ -46,6 +46,7 @@ export function FitxaAcord(props: FitxaAcordProps) {
           height={200}
           alt={acordNet}
           src={"/diagrames/" + acordNet + ".png"}
+          loading="eager"
         />
       </div>
     );

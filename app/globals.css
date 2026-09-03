@@ -26,6 +26,27 @@ body {
 }
 
 /* PROPIO JMA */
+.btn {
+  display: inline-block;
+  padding-top:3px;
+  padding-bottom:3px;
+  padding-left: 7px;
+  padding-right: 7px;
+  border-radius:5px;
+  margin: 3px;
+  min-width: 50px;
+}
+
+.btn.cA {
+  background-color: aquamarine;
+}
+
+.btn.cA:hover {
+  background-color: blue;
+  color: white;
+}
+
+/* Dins d'una cançó */
 h2 {
   font-size: 2rem;
   font-weight: bold;
@@ -112,23 +133,7 @@ h2 {
   width: 100%;
 }
 
-/* Visual Botons (Sense bootstrap, a veure què puc fer) */
-button.btn {
-  width: 10%;
-  min-width: 50px;
-  max-height: 200px;
-  margin: 5px;
-  border-radius: 10px;
-}
 
-button.btn.cA {
-  background-color: cyan;
-}
-
-button.btn.cA:hover {
-  background-color: blue;
-  color: white;
-}
 
 @media print {
   .noPrint {
@@ -147,4 +152,19 @@ button.btn.cA:hover {
 .fitxaCanco:hover {
   border: solid blue 3px;
   margin: 2px;
+}
+
+
+/* ACORDARI */
+.acordari{
+  width: 100%;
+}
+
+.acordari td{
+  vertical-align: middle;
+  text-align: center;
+  padding: 5px;
+}
+.acordari td>div{
+  margin:auto;
 }
