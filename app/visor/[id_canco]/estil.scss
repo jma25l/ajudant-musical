@@ -1,0 +1,58 @@
+h2 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.acords {
+  width: 100%;
+}
+
+.acords > span,
+.encaixatAcords > span {
+  display: block;
+  white-space: pre-wrap;
+  font-family: "Space Mono", monospace;
+}
+
+.acords > h2,
+.acords > b {
+  font-family: "Arial";
+}
+
+.acord {
+  background-color: lightgray;
+  position: relative;
+}
+
+.acord:hover {
+  background-color: darkgray;
+  /* color:white; */
+}
+
+.popup {
+  display: none;
+  position: absolute;
+  z-index: 10;
+  color: black;
+  width: 100px;
+  height: 170x;
+  transform: translate(0, "-50%");
+}
+
+.acords a {
+  display: block;
+  max-width: 50vw;
+  font-family: "Space Mono", monospace;
+}
+
+.acord:hover .popup {
+  display: block;
+}
+
+.encaixatAcords {
+  border-left: orange solid 5px;
+  padding: 10px;
+  transform: translate(-10px, 0);
+  background-color: rgba(255, 0, 0, 0.05);
+  width: 100%;
+}

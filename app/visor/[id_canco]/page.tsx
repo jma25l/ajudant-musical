@@ -5,6 +5,7 @@ import { AcordsDBList } from "@/lib/tipus";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import "./estil.scss";
 
 export default function Visor() {
   const { id_canco: nom } = useParams<{ id_canco: string }>();

@@ -1,0 +1,13 @@
+.acordari {
+  width: 100%;
+
+  td {
+    vertical-align: middle;
+    text-align: center;
+    padding: 5px;
+
+    > div {
+      margin: auto;
+    }
+  }
+}
