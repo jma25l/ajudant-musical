@@ -46,3 +46,7 @@ next-env.d.ts
 __pycache__
 .mypy_cache 
 # Esta última ya lo añade solo, pero por si las moscas
+
+
+# Per a coses de CD/CI
+build

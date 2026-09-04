@@ -9,6 +9,7 @@
     "lint": "eslint",
     "pylint": "mypy scripts",
     "knip": "knip",
+    "release": "MODE=RELEASE next build",
     "prettier": "prettier . --write"
   },
   "dependencies": {

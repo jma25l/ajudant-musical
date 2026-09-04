@@ -1,0 +1,32 @@
+name: generar-petito
+on: [push]
+jobs:
+  generar-petito:
+    name: generar-petito
+    runs-on: ubuntu-latest
+    steps:
+      # Preparar l'entorn
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2 
+
+      # Compilar
+      - run: bun install 
+      - run: bun run release 
+
+      # Generar la carpeta 
+      - run: mkdir -p built
+      - run: cp -r .next/standalone/. built/
+      - run: cp -r .next/static built/.next/static
+      - run: cp -r data built/
+      - run: cp -r public built/
+
+      # Pujar el zip
+      - run: tar -cvf ../built.tar .
+        working-directory: ./built
+
+      - name: Upload built specimen
+        uses: actions/upload-artifact@v6
+        with:
+          name:  built
+          path:  built.tar
+      
