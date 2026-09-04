@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   experimental: {
     useTypeScriptCli: true,
   },
-  output: process.env.MODE == "RELEASE"?'standalone':undefined
+  output: process.env.MODE == "RELEASE" ? "standalone" : undefined,
 };
 
 export default nextConfig;

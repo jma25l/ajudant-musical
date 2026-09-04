@@ -7,13 +7,13 @@ jobs:
     steps:
       # Preparar l'entorn
       - uses: actions/checkout@v4
-      - uses: oven-sh/setup-bun@v2 
+      - uses: oven-sh/setup-bun@v2
 
       # Compilar
-      - run: bun install 
-      - run: bun run release 
+      - run: bun install
+      - run: bun run release
 
-      # Generar la carpeta 
+      # Generar la carpeta
       - run: mkdir -p built
       - run: cp -r .next/standalone/. built/
       - run: cp -r .next/static built/.next/static
@@ -27,6 +27,5 @@ jobs:
       - name: Upload built specimen
         uses: actions/upload-artifact@v6
         with:
-          name:  built
-          path:  built.tar
-      
+          name: built
+          path: built.tar
