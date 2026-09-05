@@ -25,7 +25,7 @@ De moment, els arxius importants es troben al directori `data/`. Tot i això, es
 
 ## Requisits python
 
-PIL (pillow), pyyaml, mypy (per a anàlisi estàtica).
+PIL (pillow), pyyaml, mypy (per a anàlisi estàtica), dotenv.
 
 [Millor em dedico a les matemàtiques](https://www.youtube.com/watch?v=NlRPtFoM-d8)
 

@@ -20,10 +20,14 @@ coneguts:
     ukelele: [1, 1, 1, 4]
   C#m:
     ukelele: [1, 1, 0, 4]
+  C7:
+    ukelele: [0, 0, 0, 1]
   D:
     ukelele: [2, 2, 2, 0]
   D#:
     ukelele: [0, 3, 3, 1]
+  D7:
+    ukelele: [2, 2, 2, 3]
   Dm:
     ukelele: [2, 2, 1, 0]
   E:
@@ -34,11 +38,17 @@ coneguts:
     ukelele: [2, 0, 1, 0]
   F#:
     ukelele: [3, 1, 2, 1]
+  F#7:
+    ukelele: [3, 4, 2, 4]
   F#m:
     ukelele: [2, 1, 2, 0]
   G:
     ukelele: [0, 2, 3, 2]
   G#:
     ukelele: [1, 2, 3, 2]
+  G#7:
+    ukelele: [1, 3, 2, 3]
+  G7:
+    ukelele: [0, 2, 1, 2]
   Gm:
     ukelele: [0, 2, 3, 1]
