@@ -55,3 +55,9 @@ per tornar-lo a començar.
 [Final]
 G   D   Em   C
 G  Am   D   G
+
+[Testos miscelanis]
+A#                   Bb
+Hi havia dos acords, que s'assemblen molt. 
+Em                       C
+Un es deia La Sostingut, i l'altre Si bemol.
