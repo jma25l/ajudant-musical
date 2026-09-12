@@ -1,3 +1,5 @@
+/** Miscel·lani d'`"àlgebra musical" */
+
 export const fonamentals = [
   "C",
   "C#",
@@ -44,4 +46,22 @@ export function getFonamental(original: string): number {
   if (original.includes("#")) fonamental++;
   else if (original.includes("b")) fonamental--;
   return fonamental;
+}
+
+/** REGEX */
+//https://stackoverflow.com/a/46522424 (Adaptat)
+const notes = "[A-G]",
+  accidentals = "(b|bb|#){0,1}",
+  chords = "(m|maj|min|sus|add){0,1}",
+  suspends = "\\d{0,2}"; //Entre 1 i dos dígits.
+
+export function testAcords(x: string):string|false {
+  const b = new RegExp(
+    "^" + notes + accidentals + chords + suspends + "$",
+    "g",
+  ).test(x.trim());
+
+  if(!b) return false;
+  if(!x.includes('b')) return x;
+  return fonamentals[getFonamental(x)]+x.slice(2)
 }

@@ -1,4 +1,4 @@
-import { testAcords } from "./regex";
+import { testAcords } from "./escales";
 
 type tipusBlocFulla =
   "lletra" | "acords" | "titol" | "sotstitol" | "link" | "buida" | "capçalera";
@@ -81,7 +81,8 @@ function sonAcords(linea: string): Set<string> {
       //sep = true; // He trencat que amagar acords deixi aquestes línies
       continue;
     }
-    if (testAcords(x)) ac.add(x);
+    let y = testAcords(x)
+    if (y) ac.add(y);
     else return new Set<string>();
   }
 

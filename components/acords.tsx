@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { testAcords } from "@/lib/regex";
-import { fonamentals, getFonamental } from "@/lib/escales";
+import { fonamentals, getFonamental, testAcords } from "@/lib/escales";
 import { AcordsDBList, detColorEstatAcord } from "@/lib/tipus";
 import { FitxaAcord } from "./fitxaAcord";
 import Link from "next/link";
