@@ -1,7 +1,14 @@
 import { testAcords } from "./escales";
 
 type tipusBlocFulla =
-  "lletra" | "acords" | "titol" | "sotstitol" | "link" | "buida" | "capçalera";
+  | "lletra"
+  | "acords"
+  | "titol"
+  | "sotstitol"
+  | "link"
+  | "buida"
+  | "capçalera"
+  | "comentari";
 
 interface BlocRenderAcordsFulla {
   tipus: tipusBlocFulla;
@@ -40,6 +47,7 @@ export function parseja(continguts: string[]) {
     } else if (linea.startsWith("##")) tipus = "sotstitol";
     else if (linea.startsWith("#")) tipus = "titol";
     else if (linea.startsWith("https://")) tipus = "link";
+    else if (linea.startsWith("//")) tipus = "comentari";
     else {
       const ac = sonAcords(linea);
       if (ac.size) {
@@ -81,7 +89,7 @@ function sonAcords(linea: string): Set<string> {
       //sep = true; // He trencat que amagar acords deixi aquestes línies
       continue;
     }
-    let y = testAcords(x)
+    let y = testAcords(x);
     if (y) ac.add(y);
     else return new Set<string>();
   }

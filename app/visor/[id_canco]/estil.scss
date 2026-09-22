@@ -15,8 +15,14 @@ h2 {
 }
 
 .acords > h2,
-.acords > b {
+.acords > b,
+.acords i {
   font-family: "Arial";
+}
+
+.acords i {
+  font-size: small;
+  color: gray;
 }
 
 .acord {

@@ -55,13 +55,13 @@ const notes = "[A-G]",
   chords = "(m|maj|min|sus|add){0,1}",
   suspends = "\\d{0,2}"; //Entre 1 i dos dígits.
 
-export function testAcords(x: string):string|false {
+export function testAcords(x: string): string | false {
   const b = new RegExp(
     "^" + notes + accidentals + chords + suspends + "$",
     "g",
   ).test(x.trim());
 
-  if(!b) return false;
-  if(!x.includes('b')) return x;
-  return fonamentals[getFonamental(x)]+x.slice(2)
+  if (!b) return false;
+  if (!x.includes("b")) return x;
+  return fonamentals[getFonamental(x)] + x.slice(2);
 }

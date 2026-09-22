@@ -211,6 +211,8 @@ function BlocAcords(props: BlocAcordsProps) {
       return <h2>{node.continguts.slice(2)}</h2>;
     case "sotstitol":
       return <b>{node.continguts.slice(3)}</b>;
+    case "comentari":
+      return <i>{node.continguts.slice(2)}</i>;
     case "link":
       return <Link href={node.continguts}>{node.continguts}</Link>;
     case "encaixat":

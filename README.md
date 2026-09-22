@@ -6,6 +6,8 @@ Aquesta aplicació neix amb un objectiu força simple. És útil tenir tots els 
 
 Amb tot això, un comença a pensar i es planteja si hi hauria alguna alternativa millor, i em vaig dir: "Si vols alguna cosa ben feta, fes-la tu".
 
+**Observació:** Aquest projecte l'he realitzat de forma totalment personal, els missatges de _commit_ poden estar plagats de bromes, referències per mi mateix o elements còmics semblants.
+
 ## Estructura tècnica
 
 De moment, els arxius importants es troben al directori `data/`. Tot i això, es pot definir una ruta alternativa (veure .env.example), que complementa aquest directori, els registres d'aquest extra es fusionen sobre `data/`. Aquí hi ha diversos arxius:

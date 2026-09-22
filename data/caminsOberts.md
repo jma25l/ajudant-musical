@@ -57,6 +57,7 @@ G   D   Em   C
 G  Am   D   G
 
 [Testos miscelanis]
+// A la línea següent hauria de sortir A#/A#, malgrat estar posats com A#/Bb, tampoc s'haurien de repetir a la part de llarg. Per cert! Aquest comentari és intencionadament llarg per veure com es comporta. 
 A#                   Bb
 Hi havia dos acords, que s'assemblen molt. 
 Em                       C
