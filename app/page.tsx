@@ -7,8 +7,30 @@ import "./estil.scss";
 
 export default function Home() {
   const [canconer, setCanconer] = useState<Canco[]>([]);
+  const [filtrat, setFiltrat] = useState<Canco[]>([]);
+  const [autors, setAutors] = useState<Set<string>>(new Set<string>());
+  const [filtreAutor, setFiltreAutor] = useState<string | undefined>(undefined);
 
-  useEffect(() => void cercaCanconer().then(setCanconer), []);
+  const preSetCanconer = (data: Canco[]) => {
+    let au = new Set<string>();
+    data.forEach((x) => {
+      if (x.autor && !au.has(x.autor)) au.add(x.autor); //Potser estaria bé normalitzar
+    });
+    setCanconer(data);
+    setAutors(au);
+  };
+
+  const processaFiltreCanconer = (c: Canco) => {
+    if (filtreAutor && filtreAutor != c.autor) return false;
+    return true;
+  };
+
+  useEffect(() => void cercaCanconer().then(preSetCanconer), []);
+
+  useEffect(() => {
+    // Soc conscient que és O(n) i segurament millorable, pero bueno
+    setFiltrat(canconer.filter(processaFiltreCanconer));
+  }, [filtreAutor, canconer]);
 
   return (
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -20,6 +42,15 @@ export default function Home() {
           <a href="visor" className="btn cA">
             Visor "lliure"
           </a>
+
+          <select onChange={(x) => setFiltreAutor(x.target.value)}>
+            <option value=""> Sense filtre</option>
+            {[...autors?.values()].map((x, i) => (
+              <option value={x} key={i}>
+                {x}
+              </option>
+            ))}
+          </select>
         </div>
         <div
           style={{
@@ -29,7 +60,7 @@ export default function Home() {
             justifyContent: "center",
           }}
         >
-          {canconer.map((x, i) => (
+          {filtrat.map((x, i) => (
             <Link href={"/visor/" + x.id} key={i}>
               <div className={"fitxaCanco"}>
                 <b>{x.nom}</b>
