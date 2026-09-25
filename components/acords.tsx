@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useAccioTeclat } from "@/hooks/keyHandler";
 import { BlocRenderAcords, parseja } from "@/lib/parser";
 import { Capçalera } from "./capçalera";
+import { YoutubeVideo } from "./media";
 
 interface AcordsProps {
   nom: string;
@@ -22,6 +23,7 @@ export default function AcordsCanco(props: AcordsProps) {
     sortida: lletra,
     capçalera,
     llistaAcords,
+    extra
   } = parseja(props.lletra.split("\n"));
   const [transposicio, setTransposicio] = useState<number>(0);
   const [nomesLletra, setNomesLletra] = useState<boolean>(false);
@@ -215,6 +217,8 @@ function BlocAcords(props: BlocAcordsProps) {
       return <i>{node.continguts.slice(2)}</i>;
     case "link":
       return <Link href={node.continguts}>{node.continguts}</Link>;
+    case "youtube":
+      return <YoutubeVideo v={node.continguts} />
     case "encaixat":
       return (
         <div className="encaixatAcords">

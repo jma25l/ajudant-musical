@@ -8,6 +8,7 @@ type tipusBlocFulla =
   | "link"
   | "buida"
   | "capçalera"
+  | "youtube"
   | "comentari";
 
 interface BlocRenderAcordsFulla {
@@ -27,11 +28,13 @@ interface BlocRenderAcordsBranca {
 export type BlocRenderAcords = BlocRenderAcordsFulla | BlocRenderAcordsBranca;
 type tipusBloc = tipusBlocFulla | tipusBlocBranca;
 
+
 export function parseja(continguts: string[]) {
   let capçalera = false;
   let sortida: BlocRenderAcords[] = [];
   let currentBloc: BlocRenderAcords[] = [];
   let llistaAcords = new Set<string>();
+  let extra:{[k:string]: string} = {};
   let intro = true;
   for (let i = 0; i < continguts.length; i++) {
     let linea = continguts[i];
@@ -41,12 +44,19 @@ export function parseja(continguts: string[]) {
 
     let tipus: tipusBloc | undefined = undefined;
     if (linea.length == 0) tipus = "buida";
-    else if (linea === "<#>") {
+    else if (linea.startsWith("%")) {
+      //LINEA DE CONFIGURACIÓ - DE MOMENT NO LES EMPRO
+      const pos = linea.indexOf('=');
+      const spl = [linea.slice(1, pos), linea.slice(pos+1)]
+      if(spl.length != 2) continue;
+      extra[spl[0]] = spl[1];
+      continue;
+    } else if (linea === "<#>") {
       tipus = "capçalera";
       capçalera = true;
     } else if (linea.startsWith("##")) tipus = "sotstitol";
     else if (linea.startsWith("#")) tipus = "titol";
-    else if (linea.startsWith("https://")) tipus = "link";
+    else if (linea.startsWith("https://")) [tipus, linea] = procesaLink(linea);
     else if (linea.startsWith("//")) tipus = "comentari";
     else {
       const ac = sonAcords(linea);
@@ -76,7 +86,7 @@ export function parseja(continguts: string[]) {
     }
   }
 
-  return { sortida, capçalera, llistaAcords };
+  return { sortida, capçalera, llistaAcords, extra };
 }
 
 function sonAcords(linea: string): Set<string> {
@@ -95,4 +105,15 @@ function sonAcords(linea: string): Set<string> {
   }
 
   return ac;
+}
+
+/** Proporciona més detalls sobre links sense enguarrar massa */
+function procesaLink(linea:string):[tipusBlocFulla, string]{
+  const url = new URL(linea);
+  if(url.host === 'www.youtube.com' && url.pathname === '/watch') {
+    // Potser afegir més variants per fer dissabte
+    return ['youtube', url.searchParams.get('v') ?? ""]
+    
+  }
+  return ['link', linea];
 }
