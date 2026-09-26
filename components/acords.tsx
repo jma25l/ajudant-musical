@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { fonamentals, getFonamental, testAcords } from "@/lib/escales";
 import { AcordsDBList, detColorEstatAcord } from "@/lib/tipus";
 import { FitxaAcord } from "./fitxaAcord";
@@ -19,22 +19,22 @@ interface AcordsProps {
 export default function AcordsCanco(props: AcordsProps) {
   const { coneguts } = props;
 
-  const {
+  const { // TODO: Veure com fer-ho per a que el lliure no barregi. Potser simplement sobren states
     sortida: lletra,
     capçalera,
     llistaAcords,
     extra
   } = parseja(props.lletra.split("\n"));
-  const [transposicio, setTransposicio] = useState<number>(0);
+  
+  const [transposicio, setTransposicio] = useState<number>(parseInt(extra.transp_defecte) || 0); 
   const [nomesLletra, setNomesLletra] = useState<boolean>(false);
   const [simplifica, setSimplifica] = useState<boolean>(true); //TODO: Fer que realment es pugui act/desact
   const [visiblePopup, setVisiblePopup] = useState<string | null>(null);
   const [visiblePopupPos, setVisiblePopupPos] = useState<DOMRect | null>(null);
-  const [prims, setPrims] = useState<boolean>(true);
+
 
   function preSetTransposicio(t: number) {
     if (Math.abs(t) > 12) return;
-    setPrims(false);
     setTransposicio(t);
   }
 
