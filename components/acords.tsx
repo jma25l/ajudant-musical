@@ -19,19 +19,21 @@ interface AcordsProps {
 export default function AcordsCanco(props: AcordsProps) {
   const { coneguts } = props;
 
-  const { // TODO: Veure com fer-ho per a que el lliure no barregi. Potser simplement sobren states
+  const {
+    // TODO: Veure com fer-ho per a que el lliure no barregi. Potser simplement sobren states
     sortida: lletra,
     capçalera,
     llistaAcords,
-    extra
+    extra,
   } = parseja(props.lletra.split("\n"));
-  
-  const [transposicio, setTransposicio] = useState<number>(parseInt(extra.transp_defecte) || 0); 
+
+  const [transposicio, setTransposicio] = useState<number>(
+    parseInt(extra.transp_defecte) || 0,
+  );
   const [nomesLletra, setNomesLletra] = useState<boolean>(false);
   const [simplifica, setSimplifica] = useState<boolean>(true); //TODO: Fer que realment es pugui act/desact
   const [visiblePopup, setVisiblePopup] = useState<string | null>(null);
   const [visiblePopupPos, setVisiblePopupPos] = useState<DOMRect | null>(null);
-
 
   function preSetTransposicio(t: number) {
     if (Math.abs(t) > 12) return;
@@ -218,7 +220,7 @@ function BlocAcords(props: BlocAcordsProps) {
     case "link":
       return <Link href={node.continguts}>{node.continguts}</Link>;
     case "youtube":
-      return <YoutubeVideo v={node.continguts} />
+      return <YoutubeVideo v={node.continguts} />;
     case "encaixat":
       return (
         <div className="encaixatAcords">

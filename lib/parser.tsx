@@ -28,13 +28,12 @@ interface BlocRenderAcordsBranca {
 export type BlocRenderAcords = BlocRenderAcordsFulla | BlocRenderAcordsBranca;
 type tipusBloc = tipusBlocFulla | tipusBlocBranca;
 
-
 export function parseja(continguts: string[]) {
   let capçalera = false;
   let sortida: BlocRenderAcords[] = [];
   let currentBloc: BlocRenderAcords[] = [];
   let llistaAcords = new Set<string>();
-  let extra:{[k:string]: string} = {};
+  let extra: { [k: string]: string } = {};
   let intro = true;
   for (let i = 0; i < continguts.length; i++) {
     let linea = continguts[i];
@@ -46,9 +45,9 @@ export function parseja(continguts: string[]) {
     if (linea.length == 0) tipus = "buida";
     else if (linea.startsWith("%")) {
       //LINEA DE CONFIGURACIÓ - DE MOMENT NO LES EMPRO
-      const pos = linea.indexOf('=');
-      const spl = [linea.slice(1, pos), linea.slice(pos+1)]
-      if(spl.length != 2) continue;
+      const pos = linea.indexOf("=");
+      const spl = [linea.slice(1, pos), linea.slice(pos + 1)];
+      if (spl.length != 2) continue;
       extra[spl[0]] = spl[1];
       continue;
     } else if (linea === "<#>") {
@@ -108,12 +107,11 @@ function sonAcords(linea: string): Set<string> {
 }
 
 /** Proporciona més detalls sobre links sense enguarrar massa */
-function procesaLink(linea:string):[tipusBlocFulla, string]{
+function procesaLink(linea: string): [tipusBlocFulla, string] {
   const url = new URL(linea);
-  if(url.host === 'www.youtube.com' && url.pathname === '/watch') {
+  if (url.host === "www.youtube.com" && url.pathname === "/watch") {
     // Potser afegir més variants per fer dissabte
-    return ['youtube', url.searchParams.get('v') ?? ""]
-    
+    return ["youtube", url.searchParams.get("v") ?? ""];
   }
-  return ['link', linea];
+  return ["link", linea];
 }

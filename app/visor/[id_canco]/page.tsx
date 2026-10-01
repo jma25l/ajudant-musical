@@ -23,9 +23,11 @@ export default function Visor() {
         Inici
       </Link>
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-start py-16 px-16 bg-white dark:bg-black sm:items-start">
-        {lletra != ""?<AcordsCanco nom={nom} lletra={lletra} coneguts={coneguts} />:
-        
-        <i>Carregant ...</i>}
+        {lletra != "" ? (
+          <AcordsCanco nom={nom} lletra={lletra} coneguts={coneguts} />
+        ) : (
+          <i>Carregant ...</i>
+        )}
       </main>
     </div>
   );
