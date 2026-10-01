@@ -1,5 +1,5 @@
 name: generar-petito
-on: [push]
+on: [push, workflow_dispatch]
 jobs:
   generar-petito:
     name: generar-petito
