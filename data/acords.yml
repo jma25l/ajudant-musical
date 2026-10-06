@@ -8,7 +8,7 @@ coneguts:
   Am:
     ukelele: [2, 0, 0, 0]
   Am7:
-    estat: 1
+    #estat: 1
     ukelele: [0, 0, 0, 0]
   B:
     ukelele: [4, 3, 2, 2]
@@ -17,7 +17,7 @@ coneguts:
   Bm:
     ukelele: [4, 2, 2, 2]
   C:
-    estat: 1
+    #estat: 1
     ukelele: [0, 0, 0, 3]
   C#:
     ukelele: [1, 1, 1, 4]

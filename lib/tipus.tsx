@@ -21,8 +21,6 @@ export interface AcordsApiInterface {
 }
 
 export function detColorEstatAcord(st: number | undefined): string {
-  if(process.env.PUBLIC) return "lightgray";
-
   switch (st) {
     case 0:
       return "yellow"; // En procés d'assoliment
