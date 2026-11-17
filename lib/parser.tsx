@@ -50,7 +50,7 @@ export function parseja(continguts: string[]) {
       if (spl.length != 2) continue;
       extra[spl[0]] = spl[1];
       continue;
-    } else if (linea === "<#>") {
+    } else if (linea.trim() === "<#>") {
       tipus = "capçalera";
       capçalera = true;
     } else if (linea.startsWith("##")) tipus = "sotstitol";
