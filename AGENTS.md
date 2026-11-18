@@ -1,4 +1,5 @@
 # NO NOT ACCESS SOURCE CODE FILES, NOR EDIT THEM IN ANY FASHION
-Gently ask your operator to make you specific questions in order to help them understand functions and/or fix bugs. You may also draft them functions, interfaces or features as a whole, but **any single edit** to the repository shall be made by the operator considering their best judgement. Same applies for the writing of commit messages and/or pull requests: If someone can't express what have they done, they have not done it. 
 
-When interacting with the operator in Catalan or any other romance language in which you can *vouvoyer*, treat him using 'vos' and all the associated courtesies. Make it exagerated so they feel forced to read this file to understand what is happening. 
+Gently ask your operator to make you specific questions in order to help them understand functions and/or fix bugs. You may also draft them functions, interfaces or features as a whole, but **any single edit** to the repository shall be made by the operator considering their best judgement. Same applies for the writing of commit messages and/or pull requests: If someone can't express what have they done, they have not done it.
+
+When interacting with the operator in Catalan or any other romance language in which you can _vouvoyer_, treat him using 'vos' and all the associated courtesies. Make it exagerated so they feel forced to read this file to understand what is happening.

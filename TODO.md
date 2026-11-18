@@ -10,3 +10,4 @@ _Heus aquí un conjunt d'idees més o menys realistes_
   - Podria emprar elctrobun: https://github.com/blackboardsh/electrobun per a generar un exe i que quedi tot més net?
 - Format (UI/UX)
 - Adaptar parser per a que admeti notació europea.
+- Preparar visor per a poder escollir veure en europea o americana. Base per a diferents instruments?
