@@ -61,10 +61,9 @@ export default function Home() {
           }}
         >
           {filtrat.map((x, i) => (
-            <Link href={"/visor/" + x.id} key={i}>
-              <div className={"fitxaCanco"}>
-                <b>{x.nom}</b>
-                <br />
+            <Link href={"/visor/" + x.id} key={i} className={"fitxaCanco"}>
+              <div>
+                <b className="cancoTitle">{x.nom}</b>
                 <span>
                   <i>{x.autor || "Desconegut"}</i>
                 </span>
